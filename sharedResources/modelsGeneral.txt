@@ -1,0 +1,47 @@
+Database Models
+
+Users
+1. userID (String) - Unique identifier for each user.
+2. firstName (String) - The first name of the user.
+3. lastName (String) - The last name of the user.
+4. username (String) - The chosen username for logging in.
+5. email (String) - The email address associated with the user's account.
+6. password (String) - The user's password (Note: Passwords should be securely hashed and not stored in plaintext).
+7. birthdate (Date) - The user's date of birth.
+8. registrationDate (Timestamp) - Timestamp indicating when the user registered.
+9. lastLogin (Timestamp) - Timestamp indicating the user's last login time.
+10. isRenter (Boolean) - Indicates whether the user is a renter.
+11. phone (String) - The user's phone number.
+12. assets (Array of IDs) - Optional: IDs of assets (properties) associated with the user.
+
+Assets 
+1. assetID (Primary Key) - Unique identifier for each asset (property).
+2. grownupsNum (Integer) - Number of adults the property can accommodate.
+3. childrenNum (Integer) - Number of children the property can accommodate.
+4. babies (Integer) - Number of babies the property can accommodate.
+5. arePetsAllowed (Boolean) - Indicates whether pets are allowed in the property.
+6. city (String) - The city where the property is located.
+7. typeOfProperty (String) - Type of property (e.g., house, apartment, separate unit, hotel).
+8. isWifi (Boolean) - Indicates whether the property has Wi-Fi.
+9. isLaundryMachine (Boolean) - Indicates whether the property has a laundry machine.
+10. isAirConditioner (Boolean) - Indicates whether the property has air conditioning.
+11. isKitchen (Boolean) - Indicates whether the property has a kitchen.
+12. isTV (Boolean) - Indicates whether the property has a television.
+13. isWorkstation (Boolean) - Indicates whether the property has a workstation.
+14. isPool (Boolean) - Indicates whether the property has a pool.
+15. isFreeParking (Boolean) - Indicates whether free parking is available.
+16. isCradle (Boolean) - Indicates whether a cradle or crib is available.
+17. isGym (Boolean) - Indicates whether the property has a gym.
+18. isBreakfast (Boolean) - Indicates whether breakfast is provided.
+19. isSmokingAllowed (Boolean) - Indicates whether smoking is allowed in the property.
+20. isElectricCarCharger (Boolean) - Indicates whether the property has an electric car charger.
+21. isSmokeDetector (Boolean) - Indicates whether smoke detectors are installed.
+22. isCO2Detector (Boolean) - Indicates whether carbon monoxide (CO2) detectors are installed.
+23. isWithoutStairs (Boolean) - Indicates whether the property is without stairs for accessibility.
+24. isAccessibleParkingLot (Boolean) - Indicates whether there is accessible parking.
+25. isEntranceAccessible (Boolean) - Indicates whether the entrance is accessible.
+26. isShowerHandrail (Boolean) - Indicates whether there are handrails in the shower.
+27. isToiletHandrail (Boolean) - Indicates whether there are handrails near the toilet.
+28. isChairInShower (Boolean) - Indicates whether a shower chair is available for those with mobility needs.
+29. hostLanguage (String) - The language spoken by the host.
+30. availability (Array of Dates) - Dates when the property is available.
