@@ -1,6 +1,6 @@
 import React from 'react';
 import PlaceCard from './UI/PlaceCard';
-import { HStack } from '@chakra-ui/react';
+import { Grid, HStack } from '@chakra-ui/react';
 
 interface Props {
   
@@ -8,12 +8,23 @@ interface Props {
 
 const Places: React.FC<Props> = () => {
   return (
-    <HStack>
+    <Grid templateColumns="repeat(5, 1fr)" gap={4}>
       <PlaceCard/>
       <PlaceCard/>
       <PlaceCard/>
       <PlaceCard/>
-    </HStack>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      <PlaceCard/>
+      </Grid>
 
   );
 };

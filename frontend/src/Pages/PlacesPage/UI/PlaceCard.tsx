@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup, Card, CardBody, CardFooter, ChakraBaseProvider, Divider, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 
 interface Props {
@@ -15,27 +15,31 @@ const PlaceCard: React.FC<Props> = () => {
         borderRadius='lg'
       />
       <Stack mt='6' spacing='3'>
-        <Heading size='md'>Living room Sofa</Heading>
-        <Text>
-          This sofa is perfect for modern tropical spaces, baroque inspired
-          spaces, earthy toned spaces and for people who love a chic design with a
-          sprinkle of vintage design.
-        </Text>
-        <Text color='blue.600' fontSize='2xl'>
+        <Heading size='md' dir='rtl'>ירושלים,רחביה</Heading>
+        <Text dir='rtl' display={'inline'} >
+        <Text color="black" dir='rtl'  fontWeight="bold">תאריכים:</Text>
+        5-22 בנובמבר
+      </Text>
+      <Text dir='rtl'>
+        <Text color="black"  fontWeight="bold">מס חדרים:</Text> 4
+
+      </Text>
+      <Text dir={'rtl'}>
+        <Text color="black"  fontWeight="bold"> מרחק:</Text> 60 ק"מ
+      </Text>
+        {/* <Text color='blue.600' fontSize='2xl'>
           $450
-        </Text>
+        </Text> */}
       </Stack>
     </CardBody>
     <Divider />
-    <CardFooter>
-      <ButtonGroup spacing='2'>
-        <Button variant='solid' colorScheme='blue'>
-          Buy now
+    <CardFooter dir='rtl'>
+        <Button variant='solid' dir='rtl' colorScheme='blue'>
+          פרטים נוספים 
         </Button>
-        <Button variant='ghost' colorScheme='blue'>
+        {/* <Button variant='ghost' colorScheme='blue'>
           Add to cart
-        </Button>
-      </ButtonGroup>
+        </Button> */}
     </CardFooter>
   </Card>
   );
