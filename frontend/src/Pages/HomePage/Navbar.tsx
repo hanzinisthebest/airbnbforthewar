@@ -1,44 +1,57 @@
-import { HStack,Box } from '@chakra-ui/react';
+
+import { ActionIcon, Button, Group, Menu, Modal, Text, UnstyledButton } from '@mantine/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {IconHome , IconMenu2, IconSearch, IconSettings, IconUserCircle, IconWorld} from '@tabler/icons-react'
+import ChangeLanguage from './ChangeLanguage';
+import { useDisclosure, useHeadroom } from '@mantine/hooks';
 
 interface Props {
   
 }
 
 const Navbar: React.FC<Props> = () => {
+  const [opened, { toggle  , open ,close}] = useDisclosure();
+
   return (
-  <>
-  <header className="flex justify-between">
-    <Link to={'/'} className="flex items-center gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 -rotate-90">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-        </svg>
-        <span className="font-bold text-xl">מפונים מהדרום </span>
-      </Link>
-      <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300">
-        <div>כול מקום</div>
-        <div className="border-l border-gray-300"></div>
-        <div>כול השבוע</div>
-        <div className="border-l border-gray-300"></div>
-        <div>כמה אורחים</div>
-        <button className="bg-red-500 text-white p-1 rounded-full">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-        </button>
-      </div>
-      <Link to={'/login'} className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4 ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-        <div className="bg-gray-500 text-white rounded-full border border-gray-500 overflow-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 relative top-1">
-            <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
-          </svg>
-        </div>
-      </Link>
-      </header>
+     <>
+         <Group justify="space-between" mt={2}>
+          <UnstyledButton ml={80}>
+          <Group gap={-5} justify="flex-start">
+            <IconHome size="50" color="#F06595"/>
+            <Text size="xl" color="#F06595" fw={700} mt={5}>airbnb</Text>
+          </Group>
+          </UnstyledButton>
+          <Button.Group >
+            <Button variant="default" radius="xl" size="md">Anywhere</Button>
+            <Button variant="default" size="md">Any week</Button>
+            <Button variant="default" radius="xl" size="md" rightSection={<IconSearch/>}>Add guests</Button>
+          </Button.Group>
+          <Group  mr={80} gap="xs">
+            <Button variant="subtle" color="gray" radius="xl">Airbnb your home</Button>
+            <Modal opened={opened} onClose={close} size="100%">
+                <ChangeLanguage />
+            </Modal>
+            <ActionIcon variant="subtle" aria-label="Language" color="gray" radius="xl" size="xl" onClick={open}>
+                <IconWorld />
+            </ActionIcon>
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+                <Button rightSection={<IconUserCircle size={30} />} leftSection={<IconMenu2 size={20} />} variant="outline" color="gray" size="sm" radius="lg"/>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                <Menu.Item fw={700}>Sign Up</Menu.Item>
+                <Menu.Item>Log in</Menu.Item>
+                <Menu.Divider />  
+                <Menu.Item>Gift Cards</Menu.Item>
+                <Menu.Item>Airbnb your home</Menu.Item>
+                <Menu.Item>Help Center</Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </Group>
+          
+        </Group>
   </>
   );
 };
