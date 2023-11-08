@@ -2,44 +2,35 @@ import { useState } from 'react'
 
 import './App.css'
 import Root from './Pages/HomePage/Root';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClientProvider,QueryClient } from '@tanstack/react-query';
-import { ChakraProvider, useMediaQuery } from "@chakra-ui/react";
+import { AppShell, Group, MantineProvider ,Text ,rem } from '@mantine/core';
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
+import Router from './Router';
+import Navbar from './Pages/HomePage/Navbar';
+import { theme } from './theme';
+import { useHeadroom } from '@mantine/hooks';
 import Home from './Pages/HomePage/Home';
-import Login from './Pages/LoginPage/Login';
-import CreateAsset from './Pages/CreateAssetPage/CreateAssetPage';
+
+
+
 function App() {
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Root />,
-      id: "root",
-      children: [
-        { index: true, element: <Home /> },
-        {
-          path: "login",
-          element: <Login/>,
-        },
-        // {
-        //   path: "products/:id",
-        //   element: <DeatilesPage />,
-        // },
-        {
-          path: "create-asset",
-          element: <CreateAsset />,
-        }
-      ],
-    },
-  ]);
-
   const queryClient = new QueryClient();
-
+  const pinned = useHeadroom({ fixedAt: 120 });
   return (
-    <QueryClientProvider client={queryClient}>
-        <ChakraProvider>
-          <RouterProvider router={router} />
-        </ChakraProvider>
+  <QueryClientProvider client={queryClient}>
+<MantineProvider theme={theme}>
+<AppShell header={{ height: 60, collapsed: !pinned, offset: false }} padding="md">
+      <AppShell.Header>
+       <Navbar/>
+      </AppShell.Header>
+
+      <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+          <Home />
+      </AppShell.Main>
+    </AppShell>
+    </MantineProvider>
     </QueryClientProvider>
   )
 }
