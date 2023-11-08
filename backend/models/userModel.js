@@ -35,6 +35,10 @@ const userSchema = new Schema (
         phone: {
             type: Date,
             required: true
+        },
+        assetsIds: {
+            type: [mongoose.Schema.Types.ObjectId],
+            required: false
         }
         
 
