@@ -31,6 +31,10 @@ const assetSchema = new Schema({
         type: String,
         required: true
     },
+    ownerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     isWifi: Boolean,
     isLaundryMachine: Boolean,
     isAirConditioner: Boolean,
