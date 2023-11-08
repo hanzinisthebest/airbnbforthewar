@@ -13,8 +13,8 @@ import { useHeadroom } from '@mantine/hooks';
 import Home from './Pages/HomePage/Home';
 
 
-function App() {
 
+function App() {
 
   const queryClient = new QueryClient();
   const pinned = useHeadroom({ fixedAt: 120 });

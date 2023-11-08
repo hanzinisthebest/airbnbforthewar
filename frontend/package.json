@@ -12,12 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mantine/carousel": "^7.2.0",
-    "@mantine/core": "^7.1.7",
-    "@mantine/dates": "^7.1.7",
-    "@mantine/form": "^7.1.7",
-    "@mantine/hooks": "^7.1.7",
-    "@tabler/icons-react": "^2.40.0",
+
     "@tanstack/react-query": "^5.4.3",
     "axios": "^1.6.0",
     "chakra-ui-carousel": "^1.0.14",
@@ -25,6 +20,7 @@
     "embla-carousel-react": "^8.0.0-rc14",
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",
+    "react-calendar": "^4.6.1",
     "react-dom": "^18.2.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.18.0"
