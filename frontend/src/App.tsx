@@ -7,6 +7,7 @@ import { QueryClientProvider,QueryClient } from '@tanstack/react-query';
 import { ChakraProvider, useMediaQuery } from "@chakra-ui/react";
 import Home from './Pages/HomePage/Home';
 import Login from './Pages/LoginPage/Login';
+import CreateAsset from './Pages/CreateAssetPage/CreateAssetPage';
 function App() {
 
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ function App() {
         //   path: "products/:id",
         //   element: <DeatilesPage />,
         // },
+        {
+          path: "create-asset",
+          element: <CreateAsset />,
+        }
       ],
     },
   ]);
