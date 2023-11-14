@@ -1,7 +1,8 @@
 
 
 interface Asset {
-    assetID: number; // Unique identifier for each asset (property).
+    _id:string;
+    assetID: string; // Unique identifier for each asset (property).
     grownupsNum: number; // Number of adults the property can accommodate.
     childrenNum: number; // Number of children the property can accommodate.
     babies: number; // Number of babies the property can accommodate.

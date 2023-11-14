@@ -27,7 +27,8 @@ const Places: React.FC<Props> = () => {
      <SimpleGrid cols={3}>
       {data.map((item)=>{
         return(
-          <PlaceCard id={item.assetID} available={item.isKitchen} name={item.city} />
+          <PlaceCard id={item._id} available={item.isKitchen} name={item.city} pets={item.arePetsAllowed} freeParking = {item.isFreeParking} 
+          grownupsNum={item.grownupsNum} childrenNum={item.childrenNum} babies={item.babies}  />
         )
       })}
     </SimpleGrid>
