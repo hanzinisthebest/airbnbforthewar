@@ -36,6 +36,33 @@
     object-fit: cover;
 }
 
+/* .img:active{
+    height: 75px;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    object-fit: cover;
+    border: red;
+} */
+
+.big{
+    height:500px;
+    width:800px; 
+    display:block;
+    border-radius:0.25rem;
+    object-fit:cover;
+}
+
+
+.stack{
+    margin-top:1rem;
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:1rem;
+    cursor:pointer;
+}
+
 .info {
     text-transform: capitalize;
     width: 300px;

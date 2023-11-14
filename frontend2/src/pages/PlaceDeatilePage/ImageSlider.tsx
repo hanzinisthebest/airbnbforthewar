@@ -14,9 +14,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ url, isActive, onClick 
   // Define your ImageComponent here
   return (
     <Image
-      border={isActive ? '2px solid #ab7a5f' : 'none'}
       onClick={onClick}
-      cursor="pointer"
       src={url}
       className={classes.img}
     />
@@ -34,18 +32,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     <Box>
       <Image
         src={activeImage}
-        height="500px"
-        width="800px" 
-        display="block"
-        borderRadius="0.25rem"
-        objectFit="cover"
+        className={classes.big}
       />
       <Stack
-        mt="1rem"
-        display="grid"
-        gridTemplateColumns="repeat(5, 1fr)"
-        gap="1rem"
-        cursor="pointer"
+      className={classes.stack}
       >
         {images.map((image) => (
           <ImageComponent

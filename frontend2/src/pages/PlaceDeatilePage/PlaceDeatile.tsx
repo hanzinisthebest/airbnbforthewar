@@ -22,11 +22,11 @@ const PlaceDeatile: React.FC<Props> = () => {
   if(!data){
     return <h1>empty</h1>;
   }
-  const [images,setImages] = useState([{url:"https://yt3.googleusercontent.com/tzvCrIaCNQpSlW1aInrYwZ6uccTquvwPL5sBS0QbcJT3wg0Z4qz3FhKxnZPRL5gGbbxoiofrDlY=s176-c-k-c0x00ffffff-no-rj"},
-  {url:"https://yt3.googleusercontent.com/tzvCrIaCNQpSlW1aInrYwZ6uccTquvwPL5sBS0QbcJT3wg0Z4qz3FhKxnZPRL5gGbbxoiofrDlY=s176-c-k-c0x00ffffff-no-rj"},
-  {url:"https://yt3.googleusercontent.com/tzvCrIaCNQpSlW1aInrYwZ6uccTquvwPL5sBS0QbcJT3wg0Z4qz3FhKxnZPRL5gGbbxoiofrDlY=s176-c-k-c0x00ffffff-no-rj"},
-  {url:"https://yt3.googleusercontent.com/tzvCrIaCNQpSlW1aInrYwZ6uccTquvwPL5sBS0QbcJT3wg0Z4qz3FhKxnZPRL5gGbbxoiofrDlY=s176-c-k-c0x00ffffff-no-rj"},
-  {url:"https://yt3.googleusercontent.com/tzvCrIaCNQpSlW1aInrYwZ6uccTquvwPL5sBS0QbcJT3wg0Z4qz3FhKxnZPRL5gGbbxoiofrDlY=s176-c-k-c0x00ffffff-no-rj"}]);
+  const images = [{url:"https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG91c2V8ZW58MHx8MHx8fDA%3D"},
+  {url:"https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bHV4dXJ5JTIwaG91c2V8ZW58MHx8MHx8fDA%3D"},
+  {url:"https://images.adsttc.com/media/images/5ecd/d4ac/b357/65c6/7300/009d/large_jpg/02C.jpg?1590547607"},
+  {url:"https://i.pinimg.com/550x/fc/07/40/fc0740d7c26d93974e117cb88a81bc36.jpg"},
+  {url:"https://cdn.thecoolist.com/wp-content/uploads/2022/01/Types-of-Houses.png"}];
 
   return (
 <SimpleGrid cols={2}>

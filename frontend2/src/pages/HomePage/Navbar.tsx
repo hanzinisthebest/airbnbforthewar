@@ -1,7 +1,7 @@
 
 import { ActionIcon, Button, Group, Menu, Modal, Text, UnstyledButton } from '@mantine/core';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import {IconHome , IconMenu2, IconSearch, IconSettings, IconUserCircle, IconWorld} from '@tabler/icons-react'
 import ChangeLanguage from './ChangeLanguage';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';
@@ -17,7 +17,8 @@ const Navbar: React.FC<Props> = () => {
      <>
          <Group justify="space-between" mt={2}>
           <UnstyledButton ml={80}>
-          <Group gap={-5} justify="flex-start">
+          <Group gap={-5} justify="flex-start" >
+          
             <IconHome size="50" color="#F06595"/>
             <Text size="xl" color="#F06595" fw={700} mt={5}>airbnb</Text>
           </Group>
