@@ -3,6 +3,9 @@ import React from 'react';
 import { Card, Image, Text, Badge, Button, Group, SimpleGrid } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { Link, useNavigate } from 'react-router-dom';
+import classes from './PlaceCard.module.css'
+import { IconStar } from '@tabler/icons-react';
+
 interface Props {
   id:string;
   available:boolean;
@@ -13,97 +16,73 @@ interface Props {
   childrenNum:Number;
   babies:number
 }
+const images = [
+  'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+  'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+  'https://images.unsplash.com/photo-1605774337664-7a846e9cdf17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+  'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+  'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
+];
 
 const PlaceCard: React.FC<Props> = ({id,available,name,pets,freeParking,grownupsNum,childrenNum,babies}) => {
+  const slides = images.map((image) => (
+    <Carousel.Slide key={image}>
+      <Image src={image} height={220} />
+    </Carousel.Slide>
+  ));
   const navigate = useNavigate();
   return (
     <>
 <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
-        <Carousel withIndicators height={200}>
-          <Carousel.Slide>
-            <Image
-          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-          height={160}
-          alt="Norway"
-        />
-</Carousel.Slide>
-          <Carousel.Slide>
-          <Image
-          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-          height={160}
-          alt="Norway"
-        />
-          </Carousel.Slide>
-          <Carousel.Slide>
-          <Image
-          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-          height={160}
-          alt="Norway"
-        />
-          </Carousel.Slide>
-          {/* ...other slides */}
+      <Carousel
+          withIndicators
+          loop
+          classNames={{
+            root: classes.carousel,
+            controls: classes.carouselControls,
+            indicator: classes.carouselIndicator,
+          }}
+        >
+          {slides}
         </Carousel>
       </Card.Section>
 
       <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500}>{name}</Text>
-        {/* {available?<Badge color="pink" variant="light">
-          On Sale
-        </Badge>:
-        <Badge color="pink" variant="light">
-          closed
-        </Badge>
-} */}
+        <Group gap={5}>
+          <IconStar style={{ width: 16, height: 16 }} />
+          <Text fz="xs" fw={500}>
+            4.78
+          </Text>
+        </Group>
+
       </Group>
 
-      <SimpleGrid cols={2}>
-      <Group>
-      <Badge color="pink" variant="light">
-          pets allowed:
-      </Badge>
-      <Text>
-        {pets?'yes':'no'}
+      <Text fz="sm" c="dimmed" mt="sm">
+        Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel close to nature in
+        ultimate comfort. Enjoy the view of the epic mountain range of Blegja and the Førdefjord.
       </Text>
-      </Group>
-      <Group>
-      <Badge color="pink" variant="light">
-      Free Parking:
-      </Badge>
-      <Text>
-        {freeParking?'yes':'no'}
-      </Text>
-      </Group>
 
-      <Group>
-      <Badge color="pink" variant="light">
-      grownups:
-      </Badge>
-      <Text>
-        {String(grownupsNum)}
-      </Text>
-      </Group>
-      <Group>
-      <Badge color="pink" variant="light">
-      children and babies:
-      </Badge>
-      <Text>
-        {String(childrenNum)}
-      </Text>
-      </Group>
-      </SimpleGrid>
+      <Group justify="space-between" mt="md">
+        <div>
+          <Text fz="xl" span fw={500} className={classes.price}>
+            397$
+          </Text>
+          <Text span fz="sm" c="dimmed">
+            {' '}
+            / night
+          </Text>
+        </div>
 
-      {/* <Text size="sm" c="dimmed">
-        With Fjord Tours you can explore more of the magical fjord landscapes with tours and
-        activities on and around the fjords of Norway
-      </Text> */}
-
-      <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => navigate(`/asset/${id}`)}>
-        Book classic tour now
-      </Button>
+        <Button radius="md" onClick={() => navigate(`/asset/${id}`)}>Book now</Button>
+      </Group>
     </Card>
   </>
   );
 };
 
 export default PlaceCard;
+
+
+
