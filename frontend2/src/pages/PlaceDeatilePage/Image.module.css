@@ -33,7 +33,7 @@
     display: block;
     cursor: pointer;
     border-radius: 0.25rem;
-    object-fit: cover;
+    object-fit:cover;
 }
 
 /* .img:active{
@@ -48,7 +48,7 @@
 
 .big{
     height:500px;
-    width:800px; 
+    width:850px; 
     display:block;
     border-radius:0.25rem;
     object-fit:cover;

@@ -3,6 +3,8 @@ import PlaceCard from './UI/PlaceCard';
 import { Button , Grid, SimpleGrid } from '@mantine/core';
 import Loading from '../Shared/Loading';
 import { useGetAssets } from '../../Querys/query-assets';
+import { useInfiniteQuery } from 'react-query';
+import { fetchAssets } from '@/api/api-assets';
 
 
 interface Props {

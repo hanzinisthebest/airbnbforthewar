@@ -18,14 +18,15 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
     <MantineProvider theme={theme}>
-     <AppShell header={{ height: 60, collapsed: !pinned, offset: false }} padding="md">
+     {/* <AppShell header={{ height: 60, collapsed: !pinned, offset: false }} padding="md">
       <AppShell.Header>
        <Navbar/>
       </AppShell.Header>
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Router />
       </AppShell.Main>
-    </AppShell>
+    </AppShell> */}
+    <Router />
     </MantineProvider>
     </QueryClientProvider>
 

@@ -12,9 +12,7 @@ interface Props {
 
 const Navbar: React.FC<Props> = () => {
   const [opened, { toggle  , open ,close}] = useDisclosure();
-  const handleClick = () => {
-    window.location.href = '/';
-  };
+  const navigate = useNavigate();
   return (
      <>
          <Group justify="space-between" mt={2}>
@@ -22,7 +20,7 @@ const Navbar: React.FC<Props> = () => {
           <Group gap={-5} justify="flex-start" >
           
             <IconHome size="50" color="#F06595"/>
-            <Text size="xl" color="#F06595" fw={700} mt={5} onClick={handleClick}>airbnb</Text>
+            <Text size="xl" color="#F06595" fw={700} mt={5} onClick={() => navigate('/')}>airbnb</Text>
           </Group>
           </UnstyledButton>
           <Button.Group >

@@ -11,6 +11,7 @@ export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
     queryFn: fetchAssets,
     ...options,
   });
+  
   export const useGetAssetsById =  (id:string,options?: UseQueryOptions<Asset, Error>) =>
    useQuery({
     queryKey: ["assets",id],
