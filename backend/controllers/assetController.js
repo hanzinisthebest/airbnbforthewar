@@ -24,7 +24,7 @@ const getAsset = async (req, res) => {
     if (!asset) {
         return res.status(404).json({ mssg: 'No such asset' });
     }
-    res.status(200).json({ asset });
+    res.status(200).json(asset);
 };
 
 const deleteAsset = async (req, res) => {

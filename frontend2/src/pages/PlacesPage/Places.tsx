@@ -3,6 +3,8 @@ import PlaceCard from './UI/PlaceCard';
 import { Button , Grid, SimpleGrid } from '@mantine/core';
 import Loading from '../Shared/Loading';
 import { useGetAssets } from '../../Querys/query-assets';
+import { useInfiniteQuery } from 'react-query';
+import { fetchAssets } from '@/api/api-assets';
 
 
 interface Props {
@@ -27,7 +29,8 @@ const Places: React.FC<Props> = () => {
      <SimpleGrid cols={3}>
       {data.map((item)=>{
         return(
-          <PlaceCard id={item.assetID} available={item.isKitchen} name={item.city} />
+          <PlaceCard id={item._id} available={item.isKitchen} name={item.city} pets={item.arePetsAllowed} freeParking = {item.isFreeParking} 
+          grownupsNum={item.grownupsNum} childrenNum={item.childrenNum} babies={item.babies}  />
         )
       })}
     </SimpleGrid>
