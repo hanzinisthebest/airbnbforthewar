@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const assetSchema = new Schema({
-    assetID: {
-        type: String,
-        required: true,
-        unique: true
-    },
     grownupsNum: {
         type: Number,
         required: true
@@ -17,10 +12,6 @@ const assetSchema = new Schema({
     },
     babies: {
         type: Number,
-        required: true
-    },
-    arePetsAllowed: {
-        type: Boolean,
         required: true
     },
     city: {
@@ -35,28 +26,7 @@ const assetSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    isWifi: Boolean,
-    isLaundryMachine: Boolean,
-    isAirConditioner: Boolean,
-    isKitchen: Boolean,
-    isTV: Boolean,
-    isWorkstation: Boolean,
-    isPool: Boolean,
-    isFreeParking: Boolean,
-    isCradle: Boolean,
-    isGym: Boolean,
     isBreakfast: Boolean,
-    isSmokingAllowed: Boolean,
-    isElectricCarCharger: Boolean,
-    isSmokeDetector: Boolean,
-    isCO2Detector: Boolean,
-    isWithoutStairs: Boolean,
-    isAccessibleParkingLot: Boolean,
-    isEntranceAccessible: Boolean,
-    isShowerHandrail: Boolean,
-    isToiletHandrail: Boolean,
-    isChairInShower: Boolean,
-    hostLanguage: String,
     availability: [Date]
 }, { timestamps: true });
 

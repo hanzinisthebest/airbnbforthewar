@@ -4,7 +4,8 @@ const {
     getAsset,
     getAssets,
     deleteAsset,
-    updateAsset
+    updateAsset,
+    createRandomAssets
 } = require('../controllers/assetController');
 
 const router = express.Router();
@@ -18,5 +19,7 @@ router.post('/', createAsset);
 router.delete('/:id', deleteAsset);
 
 router.patch('/:id', updateAsset);
+
+router.post('/createrandomassets' , createRandomAssets);
 
 module.exports = router;

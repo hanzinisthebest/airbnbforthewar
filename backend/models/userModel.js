@@ -33,12 +33,8 @@ const userSchema = new Schema (
             required: true
         },
         phone: {
-            type: Date,
+            type: String,
             required: true
-        },
-        assetsIds: {
-            type: [mongoose.Schema.Types.ObjectId],
-            required: false
         }
         
 
