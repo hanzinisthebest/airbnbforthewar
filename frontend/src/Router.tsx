@@ -5,6 +5,7 @@ import Signup from './pages/SignupPage/Signup';
 import PlaceDeatile from './pages/PlaceDeatilePage/PlaceDeatile';
 import { element } from 'prop-types';
 import Root from './pages/HomePage/Root';
+import CreatePlace from './pages/CreatePlacePage/CreatePlace';
 
 const router = createBrowserRouter([
    {     
@@ -24,7 +25,13 @@ const router = createBrowserRouter([
     path: "asset/:id",
     element: <PlaceDeatile/>,
   },
-  // {
+
+  {
+    path: "create-asset",
+    element: <CreatePlace/>,
+  },
+
+   // {
   //   path: "products/:id",
   //   element: <DeatilesPage />,
   // },
