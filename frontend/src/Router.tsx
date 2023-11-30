@@ -16,6 +16,8 @@ import PlaceDeatile from './pages/PlaceDeatilePage/PlaceDeatile';
 import { element } from 'prop-types';
 
 import Root from "./pages/HomePage/Root";
+import CreatePlace from "./pages/CreatePlacePage/CreatePlace";
+import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 
 /*
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -23,7 +25,7 @@ if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
 
 */
  
-const clerkPubKey = "pk_test_c3RlYWR5LWNyYXdkYWQtNTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
+export const clerkPubKey = "pk_test_c3RlYWR5LWNyYXdkYWQtNTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
 
 console.log(clerkPubKey)
  
@@ -33,7 +35,6 @@ console.log(clerkPubKey)
 function ClerkProviderWithRoutes() {
 
   const navigate = useNavigate();
- 
   return (
     <ClerkProvider
       publishableKey={clerkPubKey}
@@ -44,6 +45,8 @@ function ClerkProviderWithRoutes() {
           <>
           <Route path="/" element={<Home/>} />
           <Route path="/sign-up" element={<SignUp/>} />
+          <Route path="/asset/:id" element={<PlaceDeatile/>} />
+          <Route path="/create-asset" element={<CreatePlace/>} />
           </>
         }
         />

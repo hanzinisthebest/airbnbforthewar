@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import { TextInput, NumberInput, Checkbox, Button, Box, Group, Title } from '@mantine/core';
 import { DateInput, DatePicker, DatePickerInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
-import { useQueryClient } from 'react-query';
-import { useMutation } from '@tanstack/react-query';
+// import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { addAsset } from '@/api/api-assets';
+import { addAsset } from '../../api/api-assets';
 interface Props {}
 
 // export const useCreateAsset = () => {
@@ -36,7 +36,9 @@ function getDatesBetween(start: Date, end: Date): Date[] {
 }
 
 const CreatePlace: React.FC<Props> = () => {
-  const queryClient = useQueryClient()
+  console.log('here');
+  
+  const queryClient = useQueryClient();
   const form = useForm<Asset>({
     initialValues: {
       grownupsNum: 0,
@@ -57,12 +59,13 @@ const CreatePlace: React.FC<Props> = () => {
 //         queryClient.invalidateQueries("todos")
 //     }
 // })
+
   const onSubmit = async (values: Asset) => {
     // createAssetMutation.mutate(values);
     try {
       form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
       console.log(values);
-      const response = await axios.post('http://localhost:4000/api/assets', values);
+      const response = await addAsset(values);
       console.log(response.data);
       navigate('/');
     } catch (error) {
@@ -123,7 +126,7 @@ const CreatePlace: React.FC<Props> = () => {
           {...form.getInputProps('isBreakfast', { type: 'checkbox' })}
         />
         <Group justify="flex-end" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Create</Button>
         </Group>
       </form>
     </Box>

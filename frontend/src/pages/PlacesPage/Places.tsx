@@ -39,6 +39,9 @@ const Places: React.FC<Props> = () => {
   if (isLoading) {
     return <Loading />;
   }
+  if(error){
+    <h1>error</h1>
+  }
   if(!data){
     return <h1>empty</h1>;
   }
