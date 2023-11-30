@@ -19,6 +19,8 @@
   "dependencies": {
     "@mantine/carousel": "^7.2.0",
     "@mantine/core": "7.1.7",
+    "@mantine/dates": "^7.2.2",
+    "@mantine/form": "^7.2.2",
     "@mantine/hooks": "7.1.7",
     "@tabler/icons-react": "^2.40.0",
     "@tanstack/react-query": "^5.8.1",
@@ -26,6 +28,7 @@
     "embla-carousel-react": "^8.0.0-rc14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.11.2"
   },
