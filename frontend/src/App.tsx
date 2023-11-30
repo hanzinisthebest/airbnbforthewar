@@ -10,6 +10,8 @@ import { useDisclosure, useHeadroom } from '@mantine/hooks';
 import {IconHome , IconMenu2, IconSearch, IconSettings, IconUserCircle, IconWorld} from '@tabler/icons-react'
 import Navbar from './pages/HomePage/Navbar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Root from './pages/HomePage/Root';
+
 
 
 export default function App() {
@@ -20,14 +22,14 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
     <MantineProvider theme={theme}>
-     {/* <AppShell header={{ height: 60, collapsed: !pinned, offset: false }} padding="md">
+      {/*<AppShell header={{ height: 60, collapsed: !pinned, offset: false }} padding="md">
       <AppShell.Header>
        <Navbar/>
       </AppShell.Header>
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Router />
       </AppShell.Main>
-    </AppShell> */}
+  </AppShell> */}
     <Router />
     </MantineProvider>
     </QueryClientProvider>
