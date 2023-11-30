@@ -1,53 +1,130 @@
 import Asset from '@/models/assets';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { TextInput, NumberInput, Checkbox, Button, Box } from '@mantine/core';
-import { DatePicker, DatePickerInput } from '@mantine/dates';
+import React, { useState } from 'react';
+// import { useForm } from 'react-hook-form';
+import { TextInput, NumberInput, Checkbox, Button, Box, Group, Title } from '@mantine/core';
+import { DateInput, DatePicker, DatePickerInput } from '@mantine/dates';
+import { useForm } from '@mantine/form';
+import { useQueryClient } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { addAsset } from '@/api/api-assets';
 interface Props {}
 
+// export const useCreateAsset = () => {
+//   const queryClient = useQueryClient();
+//   return useMutation<Asset, Error, void, unknown>(async (newAsset: Asset) :Promise<Asset> => {
+//     const response = await axios.post('http://localhost:4000/api/assets', newAsset);
+//     return response.data;
+//   }, {
+//     onSuccess: () => {
+//       queryClient.invalidateQueries('assets');
+//     },
+//   });
+// };
+
+function getDatesBetween(start: Date, end: Date): Date[] {
+  const dates: Date[] = [];
+  let currentDate = new Date(start);
+
+  while (currentDate <= end) {
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+}
+
 const CreatePlace: React.FC<Props> = () => {
-  const { register, handleSubmit, watch, setValue } = useForm<Asset>({
-    defaultValues: {
-      // other fields...
-      availability: null,
+  const queryClient = useQueryClient()
+  const form = useForm<Asset>({
+    initialValues: {
+      grownupsNum: 0,
+      childrenNum: 0,
+      babies: 0,
+      city: '',
+      typeOfProperty: '',
+      isBreakfast: false,
+      availability: [],
+      ownerId:'65647676ae692b64bc0c8d93'
     },
   });
-
-  const onSubmit = (data: Asset) => {
-    console.log(data);
+  const navigate = useNavigate();
+  // const createAssetMutation = useCreateAsset();
+//   const addAssetMutation = useMutation(addAsset, {
+//     onSuccess: () => {
+//         // Invalidates cache and refetch 
+//         queryClient.invalidateQueries("todos")
+//     }
+// })
+  const onSubmit = async (values: Asset) => {
+    // createAssetMutation.mutate(values);
+    try {
+      form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
+      console.log(values);
+      const response = await axios.post('http://localhost:4000/api/assets', values);
+      console.log(response.data);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
+  
   return (
-    <Box maw={340} mx="auto" radioGroup="md" p="xl">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <Box maw={340} mx="auto" mt={100}>
+      <form onSubmit={form.onSubmit(onSubmit)}>
+        <Title>Create an asset</Title>
         <NumberInput
+        required
+          withAsterisk
           label="Number of adults"
-          value={watch('grownupsNum')}
-          onChange={(value) => setValue('grownupsNum', Number(value))}
+          placeholder="Enter number of adults"
+          {...form.getInputProps('grownupsNum')}
         />
         <NumberInput
+        required
+          withAsterisk
           label="Number of children"
-          value={watch('childrenNum')}
-          onChange={(value) => setValue('childrenNum', Number(value))}
+          placeholder="Enter number of children"
+          {...form.getInputProps('childrenNum')}
         />
         <NumberInput
+        required
+          withAsterisk
           label="Number of babies"
-          value={watch('babies')}
-          onChange={(value) => setValue('babies', Number(value))}
+          placeholder="Enter number of babies"
+          {...form.getInputProps('babies')}
         />
-        <TextInput label="City" {...register('city')} />
-        <TextInput label="Type of property" {...register('typeOfProperty')} />
-        <Checkbox label="Is breakfast provided?" {...register('isBreakfast')} />
-        <Checkbox label="Are pets allowed?" {...register('arePetsAllowed')} />
-        {/* <DatePicker
-  label="Availability"
-  value={watch('availability') || []}
-  onChange={(value) => setValue('availability', value)}
-  multiple
-/> */}
+        <TextInput
+          required
+          withAsterisk
+          label="City"
+          placeholder="Enter city"
+          {...form.getInputProps('city')}
+        />
+        <TextInput
+          withAsterisk
+          label="Type of property"
+          placeholder="Enter type of property"
+          {...form.getInputProps('typeOfProperty')}
+        />
+         <DatePickerInput
+         required
+         withAsterisk
+      type="range"
+      label="Pick dates range"
+      placeholder="Pick dates range"
+      {...form.getInputProps('availability')}
+      />
 
-        <DatePickerInput mt="md" label="Pick date" placeholder="Pick date" />
-        <Button type="submit">Submit</Button>
+        <Checkbox
+          label="Is breakfast provided?"
+          {...form.getInputProps('isBreakfast', { type: 'checkbox' })}
+        />
+        <Group justify="flex-end" mt="md">
+          <Button type="submit">Submit</Button>
+        </Group>
       </form>
     </Box>
   );

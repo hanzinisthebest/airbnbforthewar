@@ -20,6 +20,7 @@
     "@mantine/carousel": "^7.2.0",
     "@mantine/core": "7.1.7",
     "@mantine/dates": "^7.2.2",
+    "@mantine/form": "^7.2.2",
     "@mantine/hooks": "7.1.7",
     "@tabler/icons-react": "^2.40.0",
     "@tanstack/react-query": "^5.8.1",

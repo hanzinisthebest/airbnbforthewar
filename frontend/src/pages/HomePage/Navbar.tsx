@@ -29,7 +29,7 @@ const Navbar: React.FC<Props> = () => {
             <Button variant="default" radius="xl" size="md" rightSection={<IconSearch/>}>Add guests</Button>
           </Button.Group>
           <Group  mr={80} gap="xs">
-            <Button variant="subtle" color="gray" radius="xl">Airbnb your home</Button>
+            <Button variant="subtle" color="gray" radius="xl" onClick={() => navigate('/create-asset')}>Airbnb your home</Button>
             <Modal opened={opened} onClose={close} size="100%">
                 <ChangeLanguage />
             </Modal>
@@ -46,7 +46,6 @@ const Navbar: React.FC<Props> = () => {
                 <Menu.Item>Log in</Menu.Item>
                 <Menu.Divider />  
                 <Menu.Item>Gift Cards</Menu.Item>
-                <Menu.Item>Airbnb your home</Menu.Item>
                 <Menu.Item>Help Center</Menu.Item>
               </Menu.Dropdown>
             </Menu>
