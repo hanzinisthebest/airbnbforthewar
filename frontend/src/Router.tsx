@@ -14,12 +14,13 @@ import Login from './pages/LoginPage/Login';
 import Signup from './pages/SignupPage/Signup';
 import PlaceDeatile from './pages/PlaceDeatilePage/PlaceDeatile';
 import { element } from 'prop-types';
+
 import Root from "./pages/HomePage/Root";
 
 /*
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
-}
+
 */
  
 const clerkPubKey = "pk_test_c3RlYWR5LWNyYXdkYWQtNTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
