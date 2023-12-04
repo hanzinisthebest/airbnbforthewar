@@ -12,6 +12,7 @@ import Navbar from './pages/HomePage/Navbar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Root from './pages/HomePage/Root';
 import { ClerkProvider } from '@clerk/clerk-react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 
@@ -22,6 +23,7 @@ export default function App() {
   const pinned = useHeadroom({ fixedAt: 120 });
   return (
     <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools  />
     <MantineProvider theme={theme}>
     <Router />
     </MantineProvider>

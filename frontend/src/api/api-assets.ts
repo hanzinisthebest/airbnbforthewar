@@ -20,6 +20,6 @@ export const fetchAssetById = async (id:string): Promise<Asset> => {
   return response.data;
 };
 export const addAsset = async (asset:Asset) => {
-  return await assetApi.post("/", asset)
+  return (await assetApi.post("/", asset)).data;
 }
 
