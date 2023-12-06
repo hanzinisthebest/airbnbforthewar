@@ -15,10 +15,8 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
-
+const queryClient = new QueryClient();
 export default function App() {
-
-  const queryClient = new QueryClient();
   const [opened, { toggle  , open ,close}] = useDisclosure();
   const pinned = useHeadroom({ fixedAt: 120 });
   return (

@@ -23,3 +23,6 @@ export const addAsset = async (asset:Asset) => {
   return (await assetApi.post("/", asset)).data;
 }
 
+export const deleteAsset = async ( id:string ) => {
+  return await assetApi.delete(`/${id}`)
+}

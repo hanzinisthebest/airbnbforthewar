@@ -35,7 +35,7 @@ function getDatesBetween(start: Date, end: Date): Date[] {
   return dates;
 }
 
-const CreatePlace: React.FC<Props> = () => {
+const CreatePlace: React.FC<Props> = ({}) => {
   console.log('here');
   
   const queryClient = useQueryClient();
@@ -58,16 +58,17 @@ const CreatePlace: React.FC<Props> = () => {
     onSuccess: (data) => {
         // Invalidates cache and refetch 
         // queryClient.setQueryData(['assets', data.id], data)
-        // queryClient.invalidateQueries({queryKey:["assets"]});
-        queryClient.refetchQueries({ queryKey: ['assets'] });
+        queryClient.invalidateQueries({queryKey:["assets"]});
+        // queryClient.refetchQueries({ queryKey: ['assets'] });
     }
 })
+
 
   const onSubmit = async (values: Asset) => {
     form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
     console.log(values);
     addAssetMutation.mutateAsync(values);
-    navigate('/');
+    // navigate('/');
     // try {
     //   form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
     //   console.log(values);
@@ -132,7 +133,7 @@ const CreatePlace: React.FC<Props> = () => {
           {...form.getInputProps('isBreakfast', { type: 'checkbox' })}
         />
         <Group justify="flex-end" mt="md">
-          <Button type="submit">{addAssetMutation.status==='pending'?'Loading':'Create'}</Button>
+          <Button loading={addAssetMutation.isPending} type="submit">Create</Button>
         </Group>
       </form>
     </Box>
