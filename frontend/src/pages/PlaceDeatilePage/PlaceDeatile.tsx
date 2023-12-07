@@ -31,7 +31,7 @@ const PlaceDeatile: React.FC<Props> = () => {
   return (
 <SimpleGrid cols={2}>
   <Stack>
-  <Title order={2}>Important to know:</Title>
+  <Title order={2}>Important to know about:{data.city}</Title>
   <SimpleGrid cols={2}>
       <Group>
       <Badge color="pink" variant="light">

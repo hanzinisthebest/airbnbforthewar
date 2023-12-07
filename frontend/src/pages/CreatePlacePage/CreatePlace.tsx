@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import { TextInput, NumberInput, Checkbox, Button, Box, Group, Title } from '@mantine/core';
 import { DateInput, DatePicker, DatePickerInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
-import { useQueryClient } from 'react-query';
-import { useMutation } from '@tanstack/react-query';
+// import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { addAsset } from '@/api/api-assets';
+import { addAsset } from '../../api/api-assets';
 interface Props {}
 
 // export const useCreateAsset = () => {
@@ -35,8 +35,10 @@ function getDatesBetween(start: Date, end: Date): Date[] {
   return dates;
 }
 
-const CreatePlace: React.FC<Props> = () => {
-  const queryClient = useQueryClient()
+const CreatePlace: React.FC<Props> = ({}) => {
+  console.log('here');
+  
+  const queryClient = useQueryClient();
   const form = useForm<Asset>({
     initialValues: {
       grownupsNum: 0,
@@ -51,23 +53,31 @@ const CreatePlace: React.FC<Props> = () => {
   });
   const navigate = useNavigate();
   // const createAssetMutation = useCreateAsset();
-//   const addAssetMutation = useMutation(addAsset, {
-//     onSuccess: () => {
-//         // Invalidates cache and refetch 
-//         queryClient.invalidateQueries("todos")
-//     }
-// })
-  const onSubmit = async (values: Asset) => {
-    // createAssetMutation.mutate(values);
-    try {
-      form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
-      console.log(values);
-      const response = await axios.post('http://localhost:4000/api/assets', values);
-      console.log(response.data);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
+  const addAssetMutation = useMutation({
+    mutationFn:addAsset, 
+    onSuccess: (data) => {
+        // Invalidates cache and refetch 
+        // queryClient.setQueryData(['assets', data.id], data)
+        queryClient.invalidateQueries({queryKey:["assets"]});
+        // queryClient.refetchQueries({ queryKey: ['assets'] });
     }
+})
+
+
+  const onSubmit = async (values: Asset) => {
+    form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
+    console.log(values);
+    addAssetMutation.mutateAsync(values);
+    // navigate('/');
+    // try {
+    //   form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
+    //   console.log(values);
+    //   const response = await addAsset(values);
+    //   console.log(response.data);
+    //   navigate('/');
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   
@@ -123,7 +133,7 @@ const CreatePlace: React.FC<Props> = () => {
           {...form.getInputProps('isBreakfast', { type: 'checkbox' })}
         />
         <Group justify="flex-end" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button loading={addAssetMutation.isPending} type="submit">Create</Button>
         </Group>
       </form>
     </Box>
