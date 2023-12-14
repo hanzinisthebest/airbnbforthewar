@@ -11,16 +11,19 @@ const createAsset = async (req, res) => {
 };
 
 const getAssets = async (req, res) => {
-    const page = parseInt(req.query._page, 10) || 1; // Default to page 1 if not provided
-    const limit = parseInt(req.query._limit, 10) || 10; // Default to 10 items per page if not provided
-    const skip = (page - 1) * limit;
+    // const page = parseInt(req.query._page, 10) || 1; // Default to page 1 if not provided
+    // const limit = parseInt(req.query._limit, 10) || 10; // Default to 10 items per page if not provided
+    // const skip = (page - 1) * limit;
   
-    const assets = await Asset.find({})
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+    // const assets = await Asset.find({})
+    //   .sort({ createdAt: -1 })
+    //   .skip(skip)
+    //   .limit(limit);
   
+    // res.status(200).json(assets);
+    const assets = await Asset.find({}).sort({ createdAt: -1 });
     res.status(200).json(assets);
+    
   }
 
 const getAsset = async (req, res) => {

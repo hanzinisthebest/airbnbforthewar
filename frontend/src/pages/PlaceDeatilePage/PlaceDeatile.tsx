@@ -8,7 +8,7 @@ import ImageSlider from './ImageSlider';
 interface Props {
   
 }
-type MyParams = {
+export type MyParams = {
   id: string;
 };
 
@@ -28,6 +28,17 @@ const PlaceDeatile: React.FC<Props> = () => {
   {url:"https://i.pinimg.com/550x/fc/07/40/fc0740d7c26d93974e117cb88a81bc36.jpg"},
   {url:"https://cdn.thecoolist.com/wp-content/uploads/2022/01/Types-of-Houses.png"}];
 
+  const formattedFirstDate = new Date(data.availability[0]).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+  const formattedLastDate = new Date(data.availability[data.availability.length-1]).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+
   return (
 <SimpleGrid cols={2}>
   <Stack>
@@ -38,7 +49,7 @@ const PlaceDeatile: React.FC<Props> = () => {
           pets allowed:
       </Badge>
       <Text>
-        {data.arePetsAllowed?'yes':'no'}
+        {data.isBreakfast?'yes':'no'}
       </Text>
       </Group>
       <Group>
@@ -46,7 +57,7 @@ const PlaceDeatile: React.FC<Props> = () => {
       Free Parking:
       </Badge>
       <Text>
-        {data.isFreeParking?'yes':'no'}
+        {data.isBreakfast?'yes':'no'}
       </Text>
       </Group>
 
@@ -64,6 +75,15 @@ const PlaceDeatile: React.FC<Props> = () => {
       </Badge>
       <Text>
         {String(data.childrenNum)}
+      </Text>
+      </Group>
+
+      <Group>
+      <Badge color="pink" variant="light">
+      Dates:
+      </Badge>
+      <Text>
+        {formattedFirstDate} - {formattedLastDate}
       </Text>
       </Group>
       </SimpleGrid>

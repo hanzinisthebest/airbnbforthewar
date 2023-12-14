@@ -46,7 +46,6 @@ function ClerkProviderWithRoutes() {
           <Route path="/" element={<Home/>} />
           <Route path="/sign-up" element={<SignUp/>} />
           <Route path="/asset/:id" element={<PlaceDeatile/>} />
-          <Route path="/create-asset" element={<CreatePlace/>} />
           </>
         }
         />

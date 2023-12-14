@@ -9,7 +9,7 @@ const assetApi = axios.create({
   baseURL: "http://localhost:4000/api/assets"
 })
 export const fetchAssets = async (): Promise<Asset[]> => {
-  const response =  await assetApi.get("/")
+  const response =  await assetApi.get(`/`)
   console.log(response.data);
   return response.data;
 }; 

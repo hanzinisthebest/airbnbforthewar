@@ -7,16 +7,11 @@ import classes from './PlaceCard.module.css';
 import { IconStar } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteAsset } from '../../../api/api-assets';
+import { queryClient } from '../../../util/queryClinet';
 
 interface Props {
   id: string;
-  available: boolean;
   name: string;
-  pets: Boolean;
-  freeParking: Boolean;
-  grownupsNum: Number;
-  childrenNum: Number;
-  babies: number;
 }
 const images = [
   'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
@@ -28,13 +23,7 @@ const images = [
 
 const PlaceCard: React.FC<Props> = ({
   id,
-  available,
-  name,
-  pets,
-  freeParking,
-  grownupsNum,
-  childrenNum,
-  babies,
+  name
 }) => {
   const slides = images.map((image) => (
     <Carousel.Slide key={image}>
@@ -42,14 +31,11 @@ const PlaceCard: React.FC<Props> = ({
     </Carousel.Slide>
   ));
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const deleteAssetMutation = useMutation({
     mutationFn: deleteAsset,
     onSuccess: async () => {
       // Invalidates cache and refetch
-      // queryClient.setQueryData(['assets', data.id], data)
       await queryClient.invalidateQueries({ queryKey: ['assets'] });
-      // queryClient.refetchQueries({ queryKey: ['assets'] });
     },
   });
   return (
@@ -94,16 +80,14 @@ const PlaceCard: React.FC<Props> = ({
               / night
             </Text>
           </div>
-
+          <Group justify="space-between" mt="md">
           <Button radius="md" onClick={() => navigate(`/asset/${id}`)}>
             Book now
           </Button>
-          <Button radius="md" onClick={() => navigate(`/asset/${id}`)} color="green">
-            update
-          </Button>
-          <Button radius="md" onClick={() => deleteAssetMutation.mutateAsync(id)} color="red" loading={deleteAssetMutation.isPending}>
+          {/* <Button radius="md" onClick={() => deleteAssetMutation.mutateAsync(id)} color="red" loading={deleteAssetMutation.isPending}>
             Delete
-          </Button>
+          </Button> */}
+          </Group>
         </Group>
       </Card>
     </>

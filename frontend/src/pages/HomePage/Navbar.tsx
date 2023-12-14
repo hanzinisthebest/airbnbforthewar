@@ -5,6 +5,7 @@ import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import {IconHome , IconMenu2, IconSearch, IconSettings, IconUserCircle, IconWorld} from '@tabler/icons-react'
 import ChangeLanguage from './ChangeLanguage';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';
+import CreatePlace from '../CreatePlacePage/CreatePlace';
 
 interface Props {
   
@@ -29,13 +30,16 @@ const Navbar: React.FC<Props> = () => {
             <Button variant="default" radius="xl" size="md" rightSection={<IconSearch/>}>Add guests</Button>
           </Button.Group>
           <Group  mr={80} gap="xs">
-            <Button variant="subtle" color="gray" radius="xl" onClick={() => navigate('/create-asset')}>Airbnb your home</Button>
-            <Modal opened={opened} onClose={close} size="100%">
+          <Modal opened={opened} onClose={close} >
+         <CreatePlace close={close}/>
+         </Modal>
+            <Button variant="subtle" color="gray" radius="xl" onClick={open}>Airbnb your home</Button>
+            {/* <Modal opened={opened} onClose={close} size="100%">
                 <ChangeLanguage />
             </Modal>
             <ActionIcon variant="subtle" aria-label="Language" color="gray" radius="xl" size="xl" onClick={open}>
                 <IconWorld />
-            </ActionIcon>
+            </ActionIcon> */}
             <Menu shadow="md" width={200}>
               <Menu.Target>
                 <Button rightSection={<IconUserCircle size={30} />} leftSection={<IconMenu2 size={20} />} variant="outline" color="gray" size="sm" radius="lg"/>
