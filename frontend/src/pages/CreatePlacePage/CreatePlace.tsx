@@ -1,4 +1,4 @@
-import Asset from '@/models/assets';
+import {AssetToAdd} from '@/models/assets';
 import React, { useState } from 'react';
 // import { useForm } from 'react-hook-form';
 import { TextInput, NumberInput, Checkbox, Button, Box, Group, Title } from '@mantine/core';
@@ -9,7 +9,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { addAsset } from '../../api/api-assets';
-interface Props {}
+import { queryClient } from '../../util/queryClinet';
+interface Props {
+  close:()=>void
+}
 
 // export const useCreateAsset = () => {
 //   const queryClient = useQueryClient();
@@ -35,12 +38,11 @@ function getDatesBetween(start: Date, end: Date): Date[] {
   return dates;
 }
 
-const CreatePlace: React.FC<Props> = ({}) => {
-  console.log('here');
-  
-  const queryClient = useQueryClient();
-  const form = useForm<Asset>({
+const CreatePlace: React.FC<Props> = ({close}) => {
+
+  const form = useForm<AssetToAdd>({
     initialValues: {
+      // _id:'',
       grownupsNum: 0,
       childrenNum: 0,
       babies: 0,
@@ -57,40 +59,28 @@ const CreatePlace: React.FC<Props> = ({}) => {
     mutationFn:addAsset, 
     onSuccess: (data) => {
         // Invalidates cache and refetch 
-        // queryClient.setQueryData(['assets', data.id], data)
         queryClient.invalidateQueries({queryKey:["assets"]});
-        // queryClient.refetchQueries({ queryKey: ['assets'] });
     }
 })
 
 
-  const onSubmit = async (values: Asset) => {
+  const onSubmit = async (values: AssetToAdd) => {
     form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
     console.log(values);
     addAssetMutation.mutateAsync(values);
-    // navigate('/');
-    // try {
-    //   form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
-    //   console.log(values);
-    //   const response = await addAsset(values);
-    //   console.log(response.data);
-    //   navigate('/');
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   
   return (
-    <Box maw={340} mx="auto" mt={100}>
+    <Box maw={340} mx="auto" >
       <form onSubmit={form.onSubmit(onSubmit)}>
         <Title>Create an asset</Title>
         <NumberInput
         required
-          withAsterisk
-          label="Number of adults"
-          placeholder="Enter number of adults"
-          {...form.getInputProps('grownupsNum')}
+        withAsterisk
+        label="Number of adults"
+        placeholder="Enter number of adults"
+         {...form.getInputProps('grownupsNum')}
         />
         <NumberInput
         required
@@ -133,7 +123,7 @@ const CreatePlace: React.FC<Props> = ({}) => {
           {...form.getInputProps('isBreakfast', { type: 'checkbox' })}
         />
         <Group justify="flex-end" mt="md">
-          <Button loading={addAssetMutation.isPending} type="submit">Create</Button>
+          <Button loading={addAssetMutation.isPending} type="submit" onClick={close}>Create</Button>
         </Group>
       </form>
     </Box>

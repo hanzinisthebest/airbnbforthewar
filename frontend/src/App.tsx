@@ -13,12 +13,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Root from './pages/HomePage/Root';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClient } from './util/queryClinet';
 
 
-const queryClient = new QueryClient();
 export default function App() {
   const [opened, { toggle  , open ,close}] = useDisclosure();
   const pinned = useHeadroom({ fixedAt: 120 });
+  document.title="airbnb war";
   return (
     <QueryClientProvider client={queryClient}>
     <ReactQueryDevtools  />

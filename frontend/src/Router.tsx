@@ -18,6 +18,7 @@ import { element } from 'prop-types';
 import Root from "./pages/HomePage/Root";
 import CreatePlace from "./pages/CreatePlacePage/CreatePlace";
 import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
+import MyAssets from "./pages/MyAssetsPage/MyAssets";
 
 /*
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -44,9 +45,9 @@ function ClerkProviderWithRoutes() {
         <Route path="/" element={<Root />} children={
           <>
           <Route path="/" element={<Home/>} />
+          <Route path="/myassets/:ownerId" element={<MyAssets/>} />
           <Route path="/sign-up" element={<SignUp/>} />
           <Route path="/asset/:id" element={<PlaceDeatile/>} />
-          <Route path="/create-asset" element={<CreatePlace/>} />
           </>
         }
         />

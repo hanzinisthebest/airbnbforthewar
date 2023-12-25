@@ -5,14 +5,16 @@ const {
     getAssets,
     deleteAsset,
     updateAsset,
-    createRandomAssets
+    createRandomAssets,
+    getAssetByOwnerId
 } = require('../controllers/assetController');
 
 const router = express.Router();
 
 router.get('/', getAssets);
-
 router.get('/:id', getAsset);
+router.get('/myassets/:ownerId', getAssetByOwnerId);
+
 
 router.post('/', createAsset);
 
