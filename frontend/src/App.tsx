@@ -19,6 +19,7 @@ import { queryClient } from './util/queryClinet';
 export default function App() {
   const [opened, { toggle  , open ,close}] = useDisclosure();
   const pinned = useHeadroom({ fixedAt: 120 });
+  document.title="airbnb war";
   return (
     <QueryClientProvider client={queryClient}>
     <ReactQueryDevtools  />

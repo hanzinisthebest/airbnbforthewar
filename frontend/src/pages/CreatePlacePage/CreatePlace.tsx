@@ -1,4 +1,4 @@
-import Asset from '@/models/assets';
+import {AssetToAdd} from '@/models/assets';
 import React, { useState } from 'react';
 // import { useForm } from 'react-hook-form';
 import { TextInput, NumberInput, Checkbox, Button, Box, Group, Title } from '@mantine/core';
@@ -39,9 +39,8 @@ function getDatesBetween(start: Date, end: Date): Date[] {
 }
 
 const CreatePlace: React.FC<Props> = ({close}) => {
-  console.log('here');
 
-  const form = useForm<Asset>({
+  const form = useForm<AssetToAdd>({
     initialValues: {
       // _id:'',
       grownupsNum: 0,
@@ -65,7 +64,7 @@ const CreatePlace: React.FC<Props> = ({close}) => {
 })
 
 
-  const onSubmit = async (values: Asset) => {
+  const onSubmit = async (values: AssetToAdd) => {
     form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
     console.log(values);
     addAssetMutation.mutateAsync(values);
@@ -78,10 +77,10 @@ const CreatePlace: React.FC<Props> = ({close}) => {
         <Title>Create an asset</Title>
         <NumberInput
         required
-          withAsterisk
-          label="Number of adults"
-          placeholder="Enter number of adults"
-          {...form.getInputProps('grownupsNum')}
+        withAsterisk
+        label="Number of adults"
+        placeholder="Enter number of adults"
+         {...form.getInputProps('grownupsNum')}
         />
         <NumberInput
         required

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { Card, Image, Text, Badge, Button, Group, SimpleGrid, Modal } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { Link, useNavigate } from 'react-router-dom';
-import classes from './PlaceCard.module.css';
 import { IconStar } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteAsset } from '../../../api/api-assets';
-import { queryClient } from '../../../util/queryClinet';
+import classes from '../PlacesPage/UI/PlaceCard.module.css';
+import { deleteAsset } from '../../api/api-assets';
+import { queryClient } from '../../util/queryClinet';
 import { useDisclosure } from '@mantine/hooks';
-import UpdatePlace from '../UpdatePlace';
+import UpdatePlace from '../PlacesPage/UpdatePlace';
 
 interface Props {
   id: string;
@@ -23,7 +23,7 @@ const images = [
   'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80',
 ];
 
-const PlaceCard: React.FC<Props> = ({
+const AssetCard: React.FC<Props> = ({
   id,
   name
 }) => {
@@ -34,8 +34,33 @@ const PlaceCard: React.FC<Props> = ({
   ));
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
+  const [openedUpdate, { open:openUpdate, close:closeUpdate }] = useDisclosure(false);
+  function handleDelete() {
+    deleteAssetMutation.mutateAsync(id);
+    close();
+  }
+  const deleteAssetMutation = useMutation({
+    mutationFn: deleteAsset,
+    onSuccess: async () => {
+      // Invalidates cache and refetch
+      await queryClient.invalidateQueries({ queryKey: ['assets'] });
+    },
+  });
   return (
     <>
+      <Modal opened={opened} onClose={close} size="auto" >
+        <Text>are you sure you want to delete? </Text>
+
+        <Group mt="xl">
+          <Button onClick={handleDelete} loading={deleteAssetMutation.isPending}>delete</Button>
+          <Button onClick={close}>cancel</Button>
+        </Group>
+      </Modal>
+
+
+      <Modal opened={openedUpdate} onClose={closeUpdate}>
+        <UpdatePlace close={closeUpdate} id ={id}/>
+      </Modal>
       
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Card.Section>
@@ -78,8 +103,14 @@ const PlaceCard: React.FC<Props> = ({
             </Text>
           </div>
           <Group justify="space-between" mt="md">
-          <Button radius="md" onClick={() => navigate(`/asset/${id}`)}>
+          {/* <Button radius="md" onClick={() => navigate(`/asset/${id}`)}>
             Book now
+          </Button> */}
+          <Button radius="md" color="green" onClick={openUpdate}>
+            update
+          </Button>
+          <Button radius="md" onClick={open} color="red" >
+            Delete
           </Button>
           </Group>
         </Group>
@@ -88,4 +119,4 @@ const PlaceCard: React.FC<Props> = ({
   );
 };
 
-export default PlaceCard;
+export default AssetCard;

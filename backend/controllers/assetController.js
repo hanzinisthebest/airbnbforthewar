@@ -26,6 +26,13 @@ const getAssets = async (req, res) => {
     
   }
 
+  const getAssetByOwnerId = async (req, res) => {
+    const {ownerId} = req.params; // Assuming the owner ID is passed as a URL parameter
+
+    const assets = await Asset.find({  ownerId }).sort({ createdAt: -1 });
+    res.status(200).json(assets);
+}
+
 const getAsset = async (req, res) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -112,5 +119,6 @@ module.exports = {
     getAssets,
     deleteAsset,
     updateAsset,
-    createRandomAssets
+    createRandomAssets,
+    getAssetByOwnerId
 };

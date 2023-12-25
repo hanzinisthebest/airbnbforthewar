@@ -29,7 +29,7 @@ const PlaceDeatile: React.FC<Props> = () => {
   {url:"https://cdn.thecoolist.com/wp-content/uploads/2022/01/Types-of-Houses.png"}];
 
   const formattedFirstDate = new Date(data.availability[0]).toLocaleDateString('en-US', {
-    day: 'numeric',
+    day: 'numeric', 
     month: 'short',
     year: 'numeric',
   });
@@ -84,6 +84,16 @@ const PlaceDeatile: React.FC<Props> = () => {
       </Badge>
       <Text>
         {formattedFirstDate} - {formattedLastDate}
+      </Text>
+      </Group>
+
+
+      <Group>
+      <Badge color="pink" variant="light">
+      children and babies:
+      </Badge>
+      <Text>
+        {String(data.ownerId)}
       </Text>
       </Group>
       </SimpleGrid>

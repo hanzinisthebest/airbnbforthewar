@@ -14,6 +14,7 @@ interface Props {
 const Navbar: React.FC<Props> = () => {
   const [opened, { toggle  , open ,close}] = useDisclosure();
   const navigate = useNavigate();
+  const ownerId = '65647676ae692b64bc0c8d93';
   return (
      <>
          <Group justify="space-between" mt={2}>
@@ -33,6 +34,7 @@ const Navbar: React.FC<Props> = () => {
           <Modal opened={opened} onClose={close} >
          <CreatePlace close={close}/>
          </Modal>
+            <Button variant="subtle" color="gray" radius="xl" onClick={() => navigate(`myassets/:${ownerId}`)}>Your Assets</Button>
             <Button variant="subtle" color="gray" radius="xl" onClick={open}>Airbnb your home</Button>
             {/* <Modal opened={opened} onClose={close} size="100%">
                 <ChangeLanguage />

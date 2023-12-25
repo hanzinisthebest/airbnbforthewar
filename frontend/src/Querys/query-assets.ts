@@ -1,5 +1,5 @@
-import { fetchAssets, fetchAssetById } from "../api/api-assets";
-import Asset from "../models/assets";
+import { fetchAssets, fetchAssetById,fetchAssetByOwenrId } from "../api/api-assets";
+import {Asset} from "../models/assets";
 import {
   UseQueryOptions,
   useQuery,
@@ -12,6 +12,12 @@ export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
     ...options,
   });
   
+  export const useGetAssetsByOwnerId =  (ownerId:string,options?: UseQueryOptions<Asset[], Error>) =>
+  useQuery({
+   queryKey: ["assets",ownerId],
+   queryFn: ()=>fetchAssetByOwenrId(ownerId),
+   ...options,
+ });
   export const useGetAssetsById =  (id:string,options?: UseQueryOptions<Asset, Error>) =>
    useQuery({
     queryKey: ["assets",id],
