@@ -48,8 +48,8 @@ const Navbar: React.FC<Props> = () => {
               </Menu.Target>
 
               <Menu.Dropdown>
-                <Menu.Item fw={700} >Sign Up</Menu.Item>
-                <Menu.Item>Log in</Menu.Item>
+                <Menu.Item fw={700} onClick={() => navigate("/sign-up")} >Sign Up</Menu.Item>
+                <Menu.Item onClick={() => navigate("/login")} >Log in</Menu.Item>
                 <Menu.Divider />  
                 <Menu.Item>Gift Cards</Menu.Item>
                 <Menu.Item>Help Center</Menu.Item>

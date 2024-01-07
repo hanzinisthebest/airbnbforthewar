@@ -42,7 +42,6 @@ const CreatePlace: React.FC<Props> = ({close}) => {
 
   const form = useForm<AssetToAdd>({
     initialValues: {
-      // _id:'',
       grownupsNum: 0,
       childrenNum: 0,
       babies: 0,

@@ -26,9 +26,9 @@ if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
 
 */
  
-export const clerkPubKey = "pk_test_c3RlYWR5LWNyYXdkYWQtNTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
+// export const clerkPubKey = "pk_test_c3RlYWR5LWNyYXdkYWQtNTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
 
-console.log(clerkPubKey)
+// console.log(clerkPubKey)
  
 
 
@@ -37,16 +37,17 @@ function ClerkProviderWithRoutes() {
 
   const navigate = useNavigate();
   return (
-    <ClerkProvider
-      publishableKey={clerkPubKey}
-      navigate={(to) => navigate(to)}
-    >
+    // <ClerkProvider
+    //   publishableKey={clerkPubKey}
+    //   navigate={(to) => navigate(to)}
+    // >
       <Routes>
         <Route path="/" element={<Root />} children={
           <>
           <Route path="/" element={<Home/>} />
           <Route path="/myassets/:ownerId" element={<MyAssets/>} />
-          <Route path="/sign-up" element={<SignUp/>} />
+          <Route path="/sign-up" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/asset/:id" element={<PlaceDeatile/>} />
           </>
         }
@@ -71,7 +72,7 @@ function ClerkProviderWithRoutes() {
         />
         */}
       </Routes>
-    </ClerkProvider>
+    // </ClerkProvider>
   );
 }
  
