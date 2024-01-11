@@ -7,7 +7,7 @@ import {
   SignUp,
   UserButton,
 } from "@clerk/clerk-react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter, useNavigate } from "react-router-dom";
 
 import Home from './pages/HomePage/Home';
 import Login from './pages/LoginPage/Login';
@@ -19,69 +19,36 @@ import Root from "./pages/HomePage/Root";
 import CreatePlace from "./pages/CreatePlacePage/CreatePlace";
 import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import MyAssets from "./pages/MyAssetsPage/MyAssets";
+import { checkAuthLoader } from './util/auth';
 
-/*
-if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-
-*/
- 
-// export const clerkPubKey = "pk_test_c3RlYWR5LWNyYXdkYWQtNTkuY2xlcmsuYWNjb3VudHMuZGV2JA"
-
-// console.log(clerkPubKey)
- 
-
-
-
-function ClerkProviderWithRoutes() {
-
-  const navigate = useNavigate();
-  return (
-    // <ClerkProvider
-    //   publishableKey={clerkPubKey}
-    //   navigate={(to) => navigate(to)}
-    // >
-      <Routes>
-        <Route path="/" element={<Root />} children={
-          <>
-          <Route path="/" element={<Home/>} />
-          <Route path="/myassets/:ownerId" element={<MyAssets/>} />
-          <Route path="/sign-up" element={<Signup/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/asset/:id" element={<PlaceDeatile/>} />
-          </>
-        }
-        />
-        {/*
-        <Route
-          path="/sign-up/*"
-          element={<SignUp routing="path" path="/sign-up" />}
-        />
-        <Route
-          path="/protected"
-          element={
-          <>
-            <SignedIn>
-              
-            </SignedIn>
-            <SignedOut>
-              <RedirectToSignIn />
-            </SignedOut>
-          </>
-          }
-        />
-        */}
-      </Routes>
-    // </ClerkProvider>
-  );
-}
- 
-
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    id: 'root',
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: 'myassets/:ownerId',
+        element: <MyAssets/>,
+        loader:checkAuthLoader
+      },
+      {
+        path: 'asset/:id',
+        element: <PlaceDeatile />,
+      },
+      {
+        path: 'sign-up',
+        element: <Signup />,
+      },
+      {
+        path: 'login',
+        element: <Login/>,
+      },
+    ],
+  },
+]);
 
 export function Router() {
-  return (
-    <BrowserRouter>
-      <ClerkProviderWithRoutes />
-    </BrowserRouter>
-  )
+  return <RouterProvider router={router} />
 }

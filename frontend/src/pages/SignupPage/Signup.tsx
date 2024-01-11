@@ -4,13 +4,17 @@ import { Button, Checkbox, Paper, TextInput } from '@mantine/core';
 import { DatePicker, DatePickerInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { useMutation } from '@tanstack/react-query';
+import { queryClient } from '../../util/queryClinet';
 import React from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
+import { useTokenStore } from '../../store/useToken';
 
 interface Props {
   
 }
 
 const Signup: React.FC<Props> = () => {
+  const setToken = useTokenStore((state) => state.setToken);
   const form = useForm<userToAdd>({
     initialValues: {
       firstName: '',
@@ -23,16 +27,25 @@ const Signup: React.FC<Props> = () => {
       phone: '',
     },
   });
+  const navigate = useNavigate();
   const addUserMutation = useMutation({
     mutationFn:addUser, 
     // onSuccess: (data) => {
     //     // Invalidates cache and refetch 
     //     queryClient.invalidateQueries({queryKey:["assets"]});
-    // }
+
+    //   }
 })
   const onSubmit = async (values:userToAdd) => {
     console.log(values);
-    addUserMutation.mutateAsync(values);
+   const token = await addUserMutation.mutateAsync(values).then((response) => {
+      const accessToken = response.accessToken;
+      console.log(accessToken);  // Outputs the accessToken
+      return accessToken
+  });
+  localStorage.setItem('token', token);
+  setToken(token);
+    navigate('/');
   };
 
   return (
@@ -81,7 +94,7 @@ const Signup: React.FC<Props> = () => {
           label="are you the renter?"
           {...form.getInputProps('isRenter', { type: 'checkbox' })}
         />
-          <Button type = "submit" style={{ marginTop: 15 }}>Sign Up</Button>
+          <Button type = "submit"  loading={addUserMutation.isPending} style={{ marginTop: 15 }}>Sign Up</Button>
       </form>
     </Paper>
   );

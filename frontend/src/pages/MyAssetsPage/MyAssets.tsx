@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../Shared/Loading';
-import { useGetAssets, useGetAssetsByOwnerId } from '../../Querys/query-assets';
+import { useGetAssets, useGetAssetsByOwnerId } from '../../hooks/Querys/query-assets';
 import { SimpleGrid } from '@mantine/core';
 import PlaceCard from '../PlacesPage/UI/PlaceCard';
 import AssetCard from './AssetCard';

@@ -8,11 +8,14 @@ const {
     createRandomAssets,
     getAssetByOwnerId
 } = require('../controllers/assetController');
+const verifyJWT = require('../middleware/verifyJWT');
 
 const router = express.Router();
 
 router.get('/', getAssets);
 router.get('/:id', getAsset);
+
+router.use(verifyJWT)
 router.get('/myassets/:ownerId', getAssetByOwnerId);
 
 

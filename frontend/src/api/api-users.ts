@@ -1,4 +1,4 @@
-import { userToAdd } from "@/models/user";
+import { loginUser, userToAdd } from "@/models/user";
 import axios from "axios";
 
 const userApi = axios.create({
@@ -21,6 +21,9 @@ const userApi = axios.create({
 //   };
   export const addUser = async (user:userToAdd) => {
     return (await userApi.post("/", user)).data; 
+  }
+  export const logUser = async (user:loginUser) => {
+    return (await userApi.post("/auth", user)).data; 
   }
 //   export const editAsset = async (asset:Asset) => {
 //     return (await assetApi.patch(`/${asset._id}`,asset)).data;

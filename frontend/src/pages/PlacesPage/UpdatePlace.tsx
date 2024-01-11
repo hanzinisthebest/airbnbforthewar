@@ -12,7 +12,7 @@ import { addAsset, editAsset } from '../../api/api-assets';
 import { queryClient } from '../../util/queryClinet';
 import Loading from '../Shared/Loading';
 import { MyParams } from '../PlaceDeatilePage/PlaceDeatile';
-import { useGetAssetsById } from '../../Querys/query-assets';
+import { useGetAssetsById } from '../../hooks/Querys/query-assets';
 interface Props {
   close: () => void;
   id: string;

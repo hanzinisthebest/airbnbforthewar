@@ -3,7 +3,7 @@ import '@mantine/carousel/styles.css';
 import '@mantine/dates/styles.css';
 // import '@mantine/form/styles.css';
 import {Button , AppShell,  Text , AppShellFooter, AppShellMain, AppShellNavbar, Burger, Group, MantineProvider, Skeleton, UnstyledButton, ActionIcon, Menu ,rem, Modal } from '@mantine/core';
-import { Router, clerkPubKey } from './Router';
+import { Router } from './Router';
 import { theme } from './theme';
 import { Route } from 'react-router-dom';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';

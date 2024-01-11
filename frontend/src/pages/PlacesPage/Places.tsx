@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PlaceCard from './UI/PlaceCard';
 import { Button , Grid, Loader, LoadingOverlay, SimpleGrid } from '@mantine/core';
 import Loading from '../Shared/Loading';
-import { useGetAssets } from '../../Querys/query-assets';
+import { useGetAssets } from '../../hooks/Querys/query-assets';
 // import { useInfiniteQuery } from '@tanstack/react-query'
 // import { fetchAssets } from '@/api/api-assets';
 // import Asset from '@/models/assets';

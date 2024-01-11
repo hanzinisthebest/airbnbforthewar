@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Loading from '../Shared/Loading';
-import { useGetAssetsById } from '../../Querys/query-assets';
+import { useGetAssetsById } from '../../hooks/Querys/query-assets';
 import { useParams } from 'react-router-dom';
 import { Badge, Button, Group, Image, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import ImageSlider from './ImageSlider';

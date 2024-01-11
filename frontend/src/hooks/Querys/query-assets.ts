@@ -1,5 +1,5 @@
-import { fetchAssets, fetchAssetById,fetchAssetByOwenrId } from "../api/api-assets";
-import {Asset} from "../models/assets";
+import { fetchAssets, fetchAssetById,fetchAssetByOwenrId } from "../../api/api-assets";
+import {Asset} from "../../models/assets";
 import {
   UseQueryOptions,
   useQuery,
