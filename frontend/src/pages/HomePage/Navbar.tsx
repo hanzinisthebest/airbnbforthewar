@@ -6,7 +6,7 @@ import {IconHome , IconMenu2, IconSearch, IconSettings, IconUserCircle, IconWorl
 import ChangeLanguage from './ChangeLanguage';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';
 import CreatePlace from '../CreatePlacePage/CreatePlace';
-import { useTokenStore } from '../../store/useToken';
+import { useTokenStore } from '../../store/useTokenStore';
 
 interface Props {
   

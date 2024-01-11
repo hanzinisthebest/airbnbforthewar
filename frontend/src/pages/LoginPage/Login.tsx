@@ -1,6 +1,6 @@
 import { logUser } from '../../api/api-users';
 import { loginUser } from '@/models/user';
-import { useTokenStore } from '../../store/useToken';
+import { useTokenStore } from '../../store/useTokenStore';
 import { Button, Paper, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useMutation } from '@tanstack/react-query';

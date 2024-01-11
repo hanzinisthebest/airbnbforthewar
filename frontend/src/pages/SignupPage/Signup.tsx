@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../util/queryClinet';
 import React from 'react';
 import { redirect, useNavigate } from 'react-router-dom';
-import { useTokenStore } from '../../store/useToken';
+import { useTokenStore } from '../../store/useTokenStore';
 
 interface Props {
   
