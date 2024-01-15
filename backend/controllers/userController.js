@@ -15,7 +15,30 @@ const createUser = async (req , res) => {
             const hashedPwd = await bcrypt.hash(password, 10);
             const user = await User.create({firstName , lastName , username , email , hashedPwd, birthDate , isRenter , phone})
             console.log(user);
-            res.status(200).json(user)
+            const roles = Object.values(user.roles).filter(Boolean);
+            const accessToken = jwt.sign(
+                {
+                    "UserInfo": {
+                        "username": user.username,
+                        "roles": roles
+                    }
+                },
+                process.env.ACSSES_TOKEN_SECRET,
+                { expiresIn: '30s' }
+            );
+            const refreshToken = jwt.sign(
+                { "username": user.username },
+                process.env.REFRESH_TOKEN_SECRET,
+                { expiresIn: '1d' }
+            );
+                   // Saving refreshToken with current user
+        user.refreshToken = refreshToken;
+        const result = await user.save();
+        console.log(result);
+         res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 });
+
+         // Send authorization roles and access token to user
+            res.status(200).json({result,accessToken});
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -55,7 +78,7 @@ const handleLogin = async (req, res) => {
          res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 });
 
          // Send authorization roles and access token to user
-         res.json({  accessToken });
+         res.json({  roles,accessToken });
  
     } else {
         res.sendStatus(401);

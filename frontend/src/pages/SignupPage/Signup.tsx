@@ -38,14 +38,17 @@ const Signup: React.FC<Props> = () => {
 })
   const onSubmit = async (values:userToAdd) => {
     console.log(values);
+    // const response =await addUserMutation.mutateAsync(values);
+    // console.log(response);
+    
    const token = await addUserMutation.mutateAsync(values).then((response) => {
       const accessToken = response.accessToken;
-      console.log(accessToken);  // Outputs the accessToken
+      // console.log(accessToken);  // Outputs the accessToken
       return accessToken
   });
   localStorage.setItem('token', token);
   setToken(token);
-    navigate('/');
+  navigate('/');
   };
 
   return (

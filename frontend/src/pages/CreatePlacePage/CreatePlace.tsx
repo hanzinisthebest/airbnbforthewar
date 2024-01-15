@@ -72,7 +72,7 @@ const CreatePlace: React.FC<Props> = ({close}) => {
   
   return (
     <Box maw={340} mx="auto" >
-      <form onSubmit={form.onSubmit(onSubmit)}>
+      <form onSubmit={form.onSubmit(onSubmit)}> 
         <Title>Create an asset</Title>
         <NumberInput
         required

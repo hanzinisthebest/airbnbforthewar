@@ -6,14 +6,17 @@ import { useForm } from '@mantine/form';
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRolesStore } from '../../store/useRolesStore';
 
 interface Props {
   
 }
 
 const Login: React.FC<Props> = () => {
-  // const token = useTokenStore((state) => state.token);
+  // const roles = useRolesStore((state) => state.roles);
+  
   const setToken = useTokenStore((state) => state.setToken);
+  const setRoles = useRolesStore((state) => state.setRoles);
   const form = useForm<loginUser>({
     initialValues: {
       username: '',
@@ -26,14 +29,18 @@ const Login: React.FC<Props> = () => {
 const navigate = useNavigate();
   const onSubmit = async (values:loginUser) => {
     console.log(values);
-   const token = await logUserMutation.mutateAsync(values).then((response) => {
+   const {token,roles} = await logUserMutation.mutateAsync(values).then((response) => {
       const accessToken = response.accessToken;
+      const roles = response.roles;
+      console.log(typeof(roles));
       // console.log(accessToken);  // Outputs the accessToken
-      return accessToken
+      return {token:accessToken,roles:roles}
   });
-  
   localStorage.setItem('token', token);
   setToken(token);
+  setRoles(roles);
+  console.log(roles);
+  
   navigate('/')    
   };
 
