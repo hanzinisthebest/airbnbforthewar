@@ -8,8 +8,9 @@ import { useForm } from '@mantine/form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { addAsset } from '../../api/api-assets';
+import { MutationVariables, addAsset } from '../../api/api-assets';
 import { queryClient } from '../../util/queryClinet';
+import { useTokenStore } from '../../store/useTokenStore';
 interface Props {
   close:()=>void
 }
@@ -39,7 +40,7 @@ function getDatesBetween(start: Date, end: Date): Date[] {
 }
 
 const CreatePlace: React.FC<Props> = ({close}) => {
-
+  const token = useTokenStore((state) => state.token);
   const form = useForm<AssetToAdd>({
     initialValues: {
       grownupsNum: 0,
@@ -63,7 +64,7 @@ const CreatePlace: React.FC<Props> = ({close}) => {
 })
 
 
-  const onSubmit = async (values: AssetToAdd) => {
+  const onSubmit = async (values:AssetToAdd) => {
     form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
     console.log(values);
     addAssetMutation.mutateAsync(values);

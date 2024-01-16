@@ -20,35 +20,78 @@ import CreatePlace from "./pages/CreatePlacePage/CreatePlace";
 import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import MyAssets from "./pages/MyAssetsPage/MyAssets";
 import { checkAuthLoader } from './util/auth';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    id: 'root',
-    children: [
-      { index: true, element: <Home /> },
-      {
-        path: 'myassets/:ownerId',
-        element: <MyAssets/>,
-        loader:checkAuthLoader
-      },
-      {
-        path: 'asset/:id',
-        element: <PlaceDeatile />,
-      },
-      {
-        path: 'sign-up',
-        element: <Signup />,
-      },
-      {
-        path: 'login',
-        element: <Login/>,
-      },
-    ],
-  },
-]);
+import RequireAuth from "./pages/RequireAuth";
+const ROLES_LIST = {
+  "Admin": 5150,
+  "Editor": 1984,
+  "User": 2001
+}
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <Root />,
+//     id: 'root',
+//     children: [
+//       { index: true, element: <Home /> },
+//       {
+//         path: 'myassets/:ownerId',
+//         element: <MyAssets/>,
+//         loader:checkAuthLoader([ROLES_LIST.Editor])
+//       },
+//       {
+//         path: 'asset/:id',
+//         element: <PlaceDeatile />,
+//       },
+//       {
+//         path: 'sign-up',
+//         element: <Signup />,
+//       },
+//       {
+//         path: 'login',
+//         element: <Login/>,
+//       },
+//     ],
+//   },
+// ]);
 
 export function Router() {
-  return <RouterProvider router={router} />
+  return(
+    <Routes>
+    <Route path="/" element={<Root />} children={
+          <>
+          <Route path="/" element={<Home/>} />
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+          <Route path="/myassets/:ownerId" element={<MyAssets/>} />
+          </Route>
+          <Route path="sign-up" element={<Signup/>} />
+          <Route path="login" element={<Login/>} />
+          <Route path="/asset/:id" element={<PlaceDeatile/>} />
+          </>
+        }
+        />
+        {/* public routes */}
+        {/* <Route path="login" element={<Login />} />
+        <Route path= 'sign-up' element={<Signup />} /> */}
+        {/* <Route path="linkpage" element={<LinkPage />} />
+        <Route path="unauthorized" element={<Unauthorized />} /> */}
+
+        {/* we want to protect these routes */}
+        {/* <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
+          <Route path="editor" element={<Editor />} />
+        </Route>
+
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+          <Route path="admin" element={<Admin />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
+          <Route path="lounge" element={<Lounge />} />
+        </Route> */}
+    </Routes>
+  )
 }

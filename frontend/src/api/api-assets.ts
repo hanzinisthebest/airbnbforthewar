@@ -4,18 +4,20 @@ import { getAuthToken } from "../util/auth";
 
 
 
-
+// export type MutationVariables = {
+//   asset: AssetToAdd,
+//   accessToken: string,
+// };
 
 const assetApi = axios.create({
   baseURL: "http://localhost:4000/api/assets"
 })
 export const fetchAssets = async (): Promise<Asset[]> => {
   const response =  await assetApi.get(`/`,)
-  console.log(response.data);
   return response.data;
 }; 
-export const fetchAssetByOwenrId = async (ownerId:string): Promise<Asset[]> => {
-  const accessToken = getAuthToken();
+export const fetchAssetByOwenrId = async (ownerId:string,accessToken:string): Promise<Asset[]> => {
+  // const accessToken = getAuthToken();
   // console.log(accessToken);
   
   const response = await assetApi.get("/myassets/"+ownerId, {
@@ -23,7 +25,6 @@ export const fetchAssetByOwenrId = async (ownerId:string): Promise<Asset[]> => {
       Authorization: `Bearer ${accessToken}`
     }
   })
-  console.log(response.data);
   return response.data;
 };
 export const fetchAssetById = async (id:string): Promise<Asset> => {
@@ -31,24 +32,21 @@ export const fetchAssetById = async (id:string): Promise<Asset> => {
   console.log(response.data);
   return response.data;
 };
-export const addAsset = async (asset:AssetToAdd) => {
-  const accessToken = getAuthToken();
+export const addAsset = async ( asset:AssetToAdd, accessToken:string ): Promise<AssetToAdd>  => {
   return (await assetApi.post("/", asset,{
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
   })).data; 
 }
-export const editAsset = async (asset:Asset) => {
-  const accessToken = getAuthToken();
+export const editAsset = async (asset:Asset,accessToken:string) => {
   return (await assetApi.patch(`/${asset._id}`,asset,{
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
   })).data;
 }
-export const deleteAsset = async ( id:string ) => {
-  const accessToken = getAuthToken();
+export const deleteAsset = async ( id:string,accessToken:string ) => {
   return await assetApi.delete(`/${id}`,{
     headers: {
       Authorization: `Bearer ${accessToken}`

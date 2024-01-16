@@ -28,18 +28,19 @@ const Login: React.FC<Props> = () => {
 })
 const navigate = useNavigate();
   const onSubmit = async (values:loginUser) => {
-    console.log(values);
-   const {token,roles} = await logUserMutation.mutateAsync(values).then((response) => {
-      const accessToken = response.accessToken;
-      const roles = response.roles;
-      console.log(typeof(roles));
+   const {accessToken,roles} = await logUserMutation.mutateAsync(values).then((response) => {
+      // const accessToken = response.accessToken;
+      // const roles = response.roles;
+      // console.log(typeof(roles));
       // console.log(accessToken);  // Outputs the accessToken
-      return {token:accessToken,roles:roles}
+      return response;
   });
-  localStorage.setItem('token', token);
-  setToken(token);
-  setRoles(roles);
+  const token = accessToken;
+  console.log(token);
   console.log(roles);
+ 
+  setToken(token);
+  setRoles(Object.values(roles).map(Number));
   
   navigate('/')    
   };

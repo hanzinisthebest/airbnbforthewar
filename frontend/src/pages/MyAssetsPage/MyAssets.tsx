@@ -6,6 +6,7 @@ import PlaceCard from '../PlacesPage/UI/PlaceCard';
 import AssetCard from './AssetCard';
 import { useParams } from 'react-router-dom';
 import { MyParams } from '../PlaceDeatilePage/PlaceDeatile';
+import { useTokenStore } from '../../store/useTokenStore';
 
 interface Props {
   
@@ -15,6 +16,7 @@ export type OwnerParams = {
   };
 
 const MyAssets: React.FC<Props> = () => {
+  const token = useTokenStore((state) => state.token);
 // const [ownerId,setOwnerId] = useState('');
 
 // useEffect(() => {
@@ -23,7 +25,7 @@ const MyAssets: React.FC<Props> = () => {
 // let {ownerId} = useParams<OwnerParams>();
 // ownerId = typeof ownerId === 'string' ? ownerId : '';
 const ownerId = '65647676ae692b64bc0c8d93';
-const { isLoading, error, data } = useGetAssetsByOwnerId(ownerId);
+const { isLoading, error, data } = useGetAssetsByOwnerId(ownerId,token?token:'');
   if (isLoading) {
     return <Loading />;
   }

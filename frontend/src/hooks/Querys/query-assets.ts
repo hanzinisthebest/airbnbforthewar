@@ -12,10 +12,10 @@ export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
     ...options,
   });
   
-  export const useGetAssetsByOwnerId =  (ownerId:string,options?: UseQueryOptions<Asset[], Error>) =>
+  export const useGetAssetsByOwnerId =  (ownerId:string,accessToken:string,options?: UseQueryOptions<Asset[], Error>) =>
   useQuery({
    queryKey: ["assets",ownerId],
-   queryFn: ()=>fetchAssetByOwenrId(ownerId),
+   queryFn: ()=>fetchAssetByOwenrId(ownerId,accessToken),
    ...options,
  });
   export const useGetAssetsById =  (id:string,options?: UseQueryOptions<Asset, Error>) =>

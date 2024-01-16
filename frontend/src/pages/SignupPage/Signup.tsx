@@ -8,13 +8,14 @@ import { queryClient } from '../../util/queryClinet';
 import React from 'react';
 import { redirect, useNavigate } from 'react-router-dom';
 import { useTokenStore } from '../../store/useTokenStore';
-
+import { useRolesStore } from '../../store/useRolesStore';
 interface Props {
   
 }
 
 const Signup: React.FC<Props> = () => {
   const setToken = useTokenStore((state) => state.setToken);
+  const setRoles = useRolesStore((state) => state.setRoles);
   const form = useForm<userToAdd>({
     initialValues: {
       firstName: '',
@@ -37,17 +38,18 @@ const Signup: React.FC<Props> = () => {
     //   }
 })
   const onSubmit = async (values:userToAdd) => {
-    console.log(values);
     // const response =await addUserMutation.mutateAsync(values);
     // console.log(response);
     
-   const token = await addUserMutation.mutateAsync(values).then((response) => {
+   const {token,roles} = await addUserMutation.mutateAsync(values).then((response) => {
       const accessToken = response.accessToken;
       // console.log(accessToken);  // Outputs the accessToken
-      return accessToken
+      return response
   });
-  localStorage.setItem('token', token);
+  console.log(token); 
+  console.log(roles);
   setToken(token);
+  setRoles(Object.values(roles).map(Number));
   navigate('/');
   };
 

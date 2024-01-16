@@ -42,7 +42,6 @@ const Navbar: React.FC<Props> = () => {
             {token?<Button variant="subtle" color="gray" radius="xl" onClick={open}>Airbnb your home</Button>:''}
             {token ?< Button onClick={()=> {
              setToken('');
-            localStorage.removeItem('token');
             navigate('/');}}>
               Logout
             </Button>:''}
