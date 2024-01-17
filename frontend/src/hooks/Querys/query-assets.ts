@@ -1,5 +1,6 @@
-import { fetchAssets, fetchAssetById,fetchAssetByOwenrId } from "../../api/api-assets";
-import {Asset} from "../../models/assets";
+import { useMutation } from "react-query";
+import { fetchAssets, fetchAssetById,fetchAssetByOwenrId, addAsset } from "../../api/api-assets";
+import {Asset, AssetToAdd} from "../../models/assets";
 import {
   UseQueryOptions,
   useQuery,
@@ -24,3 +25,11 @@ export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
     queryFn: ()=>fetchAssetById(id),
     ...options,
   });
+  // export const useCreateAsset = (asset:AssetToAdd,accessToken:string,options?: UseQueryOptions<AssetToAdd, Error>)=>
+  // useMutation({
+  //   mutationFn:()=> addAsset(asset,accessToken),
+  //   onError: (error) => {
+  //     console.log("An error occurred: ", error);
+  //   },
+  //   ...options,
+  // })

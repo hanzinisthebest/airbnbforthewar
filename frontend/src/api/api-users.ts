@@ -25,6 +25,17 @@ const userApi = axios.create({
   export const logUser = async (user:loginUser) => {
     return (await userApi.post("/auth", user)).data; 
   }
+
+  export const getUsers = async (accessToken:string) => {
+    console.log(accessToken);
+    
+    return (await userApi.get("/users", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+  })).data; 
+  }
+
 //   export const editAsset = async (asset:Asset) => {
 //     return (await assetApi.patch(`/${asset._id}`,asset)).data;
 //   }

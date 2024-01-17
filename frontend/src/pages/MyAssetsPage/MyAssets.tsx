@@ -29,7 +29,11 @@ const { isLoading, error, data } = useGetAssetsByOwnerId(ownerId,token?token:'')
   if (isLoading) {
     return <Loading />;
   }
-  if(!data){
+
+  if(error){
+    return <h1>{error.message}</h1>
+  }
+    if(!data){
     return <h1>empty</h1>;
   }
   return (

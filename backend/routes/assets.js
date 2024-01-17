@@ -17,8 +17,6 @@ router.get('/:id', getAsset);
 
 router.use(verifyJWT)
 router.get('/myassets/:ownerId', getAssetByOwnerId);
-
-
 router.post('/', createAsset);
 
 router.delete('/:id', deleteAsset);

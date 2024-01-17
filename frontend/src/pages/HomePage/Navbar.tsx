@@ -7,6 +7,7 @@ import ChangeLanguage from './ChangeLanguage';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';
 import CreatePlace from '../CreatePlacePage/CreatePlace';
 import { useTokenStore } from '../../store/useTokenStore';
+import { useRolesStore } from '../../store/useRolesStore';
 
 interface Props {
   
@@ -18,7 +19,8 @@ const Navbar: React.FC<Props> = () => {
   const ownerId = '65647676ae692b64bc0c8d93';
   const token = useTokenStore((state) => state.token);
   const setToken = useTokenStore((state) => state.setToken);
-  
+  const roles = useRolesStore((state) => state.roles)
+  const setRoles = useRolesStore((state) => state.setRoles);
   return (
      <>
          <Group justify="space-between" mt={2}>
@@ -38,6 +40,7 @@ const Navbar: React.FC<Props> = () => {
           <Modal opened={opened} onClose={close} >
          <CreatePlace close={close}/>
          </Modal>
+            {token?<Button variant="subtle" color="gray" radius="xl" onClick={() => navigate('/users')}>users</Button>:''}
             {token?<Button variant="subtle" color="gray" radius="xl" onClick={() => navigate(`myassets/:${ownerId}`)}>Your Assets</Button>:''}
             {token?<Button variant="subtle" color="gray" radius="xl" onClick={open}>Airbnb your home</Button>:''}
             {token ?< Button onClick={()=> {
@@ -45,6 +48,7 @@ const Navbar: React.FC<Props> = () => {
             navigate('/');}}>
               Logout
             </Button>:''}
+           
             {/* <Modal opened={opened} onClose={close} size="100%">
                 <ChangeLanguage />
             </Modal>

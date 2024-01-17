@@ -21,6 +21,7 @@ import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import MyAssets from "./pages/MyAssetsPage/MyAssets";
 import { checkAuthLoader } from './util/auth';
 import RequireAuth from "./pages/RequireAuth";
+import UsersTable from "./pages/UsersPage/UsersTable";
 const ROLES_LIST = {
   "Admin": 5150,
   "Editor": 1984,
@@ -63,6 +64,7 @@ export function Router() {
           <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
           <Route path="/myassets/:ownerId" element={<MyAssets/>} />
           </Route>
+          <Route path="/users" element={<UsersTable/>} />
           <Route path="sign-up" element={<Signup/>} />
           <Route path="login" element={<Login/>} />
           <Route path="/asset/:id" element={<PlaceDeatile/>} />

@@ -8,9 +8,10 @@ import { useForm } from '@mantine/form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { MutationVariables, addAsset } from '../../api/api-assets';
+import { addAsset } from '../../api/api-assets';
 import { queryClient } from '../../util/queryClinet';
 import { useTokenStore } from '../../store/useTokenStore';
+// import { useCreateAsset } from '../../hooks/Querys/query-assets';
 interface Props {
   close:()=>void
 }
@@ -54,20 +55,20 @@ const CreatePlace: React.FC<Props> = ({close}) => {
     },
   });
   const navigate = useNavigate();
-  // const createAssetMutation = useCreateAsset();
-  const addAssetMutation = useMutation({
-    mutationFn:addAsset, 
-    onSuccess: (data) => {
+const addAssetMutation=  useMutation({
+    mutationFn:()=>addAsset(form.values, token?token:''),
+    onSuccess: () => {
         // Invalidates cache and refetch 
         queryClient.invalidateQueries({queryKey:["assets"]});
     }
 })
-
-
+// const mutateAsync = useCreateAsset;
   const onSubmit = async (values:AssetToAdd) => {
     form.values.availability = getDatesBetween(values.availability[0],values.availability[1]);
-    console.log(values);
-    addAssetMutation.mutateAsync(values);
+    // const {data}=useCreateAsset(values,token?token:'');
+    // console.log(data);
+    // addAssetMutation.mutateAsync(values,token);
+    addAssetMutation.mutateAsync(values,token?token:'');
   };
 
   
@@ -123,7 +124,10 @@ const CreatePlace: React.FC<Props> = ({close}) => {
           {...form.getInputProps('isBreakfast', { type: 'checkbox' })}
         />
         <Group justify="flex-end" mt="md">
-          <Button loading={addAssetMutation.isPending} type="submit" onClick={close}>Create</Button>
+          <Button 
+          // loading={addAssetMutation.isPending} 
+          type="submit" 
+          onClick={close}>Create</Button>
         </Group>
       </form>
     </Box>

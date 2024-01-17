@@ -5,7 +5,7 @@ import { Button, Paper, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRolesStore } from '../../store/useRolesStore';
 
 interface Props {
@@ -27,6 +27,8 @@ const Login: React.FC<Props> = () => {
     mutationFn:logUser, 
 })
 const navigate = useNavigate();
+const location = useLocation();
+const from = location.state?.from?.pathname || "/";
   const onSubmit = async (values:loginUser) => {
    const {accessToken,roles} = await logUserMutation.mutateAsync(values).then((response) => {
       // const accessToken = response.accessToken;
@@ -42,7 +44,7 @@ const navigate = useNavigate();
   setToken(token);
   setRoles(Object.values(roles).map(Number));
   
-  navigate('/')    
+  navigate(from, { replace: true });   
   };
 
   return (
