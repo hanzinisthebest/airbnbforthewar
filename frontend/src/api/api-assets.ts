@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import {Asset, AssetToAdd} from "../models/assets";
 import { getAuthToken } from "../util/auth";
 
@@ -16,15 +16,16 @@ export const fetchAssets = async (): Promise<Asset[]> => {
   const response =  await assetApi.get(`/`,)
   return response.data;
 }; 
-export const fetchAssetByOwenrId = async (ownerId:string,accessToken:string): Promise<Asset[]> => {
+export const fetchAssetByOwenrId = async (ownerId:string,axiosPrivate: AxiosInstance): Promise<Asset[]> => {
   // const accessToken = getAuthToken();
   // console.log(accessToken);
   
-  const response = await assetApi.get("/myassets/"+ownerId, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  })
+  const response = await axiosPrivate.get("assets/myassets/"+ownerId )
+  // {
+  //   headers: {
+  //     Authorization: `Bearer ${accessToken}`
+  //   }
+  // }
   return response.data;
 };
 export const fetchAssetById = async (id:string): Promise<Asset> => {

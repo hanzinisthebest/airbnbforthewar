@@ -5,6 +5,7 @@ import {
   UseQueryOptions,
   useQuery,
 } from "@tanstack/react-query";
+import { AxiosInstance } from "axios";
 
 export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
   useQuery({
@@ -13,10 +14,10 @@ export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
     ...options,
   });
   
-  export const useGetAssetsByOwnerId =  (ownerId:string,accessToken:string,options?: UseQueryOptions<Asset[], Error>) =>
+  export const useGetAssetsByOwnerId =  (ownerId:string,axiosPrivate:AxiosInstance,options?: UseQueryOptions<Asset[], Error>) =>
   useQuery({
    queryKey: ["assets",ownerId],
-   queryFn: ()=>fetchAssetByOwenrId(ownerId,accessToken),
+   queryFn: ()=>fetchAssetByOwenrId(ownerId,axiosPrivate),
    ...options,
  });
   export const useGetAssetsById =  (id:string,options?: UseQueryOptions<Asset, Error>) =>

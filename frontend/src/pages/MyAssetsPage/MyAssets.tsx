@@ -4,9 +4,10 @@ import { useGetAssets, useGetAssetsByOwnerId } from '../../hooks/Querys/query-as
 import { SimpleGrid } from '@mantine/core';
 import PlaceCard from '../PlacesPage/UI/PlaceCard';
 import AssetCard from './AssetCard';
-import { useParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MyParams } from '../PlaceDeatilePage/PlaceDeatile';
 import { useTokenStore } from '../../store/useTokenStore';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 interface Props {
   
@@ -17,6 +18,11 @@ export type OwnerParams = {
 
 const MyAssets: React.FC<Props> = () => {
   const token = useTokenStore((state) => state.token);
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(axiosPrivate);
+
 // const [ownerId,setOwnerId] = useState('');
 
 // useEffect(() => {
@@ -25,13 +31,13 @@ const MyAssets: React.FC<Props> = () => {
 // let {ownerId} = useParams<OwnerParams>();
 // ownerId = typeof ownerId === 'string' ? ownerId : '';
 const ownerId = '65647676ae692b64bc0c8d93';
-const { isLoading, error, data } = useGetAssetsByOwnerId(ownerId,token?token:'');
+const { isLoading, error, data } = useGetAssetsByOwnerId(ownerId,axiosPrivate);
   if (isLoading) {
     return <Loading />;
   }
 
   if(error){
-    return <h1>{error.message}</h1>
+    navigate('/login', { state: { from: location }, replace: true });
   }
     if(!data){
     return <h1>empty</h1>;

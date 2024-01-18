@@ -22,7 +22,8 @@ import MyAssets from "./pages/MyAssetsPage/MyAssets";
 import { checkAuthLoader } from './util/auth';
 import RequireAuth from "./pages/RequireAuth";
 import UsersTable from "./pages/UsersPage/UsersTable";
-const ROLES_LIST = {
+import PersistLogin from "./pages/PersistLogin";
+export const ROLES_LIST = {
   "Admin": 5150,
   "Editor": 1984,
   "User": 2001
@@ -61,13 +62,20 @@ export function Router() {
     <Route path="/" element={<Root />} children={
           <>
           <Route path="/" element={<Home/>} />
-          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-          <Route path="/myassets/:ownerId" element={<MyAssets/>} />
-          </Route>
-          <Route path="/users" element={<UsersTable/>} />
           <Route path="sign-up" element={<Signup/>} />
           <Route path="login" element={<Login/>} />
           <Route path="/asset/:id" element={<PlaceDeatile/>} />
+
+          <Route element = {<PersistLogin/>}>
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
+          <Route path="/myassets/:ownerId" element={<MyAssets/>} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+          <Route path="/users" element={<UsersTable/>} />
+          </Route>
+          </Route>
+ 
+      
           </>
         }
         />

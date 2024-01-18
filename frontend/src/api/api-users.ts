@@ -1,9 +1,15 @@
 import { loginUser, userToAdd } from "@/models/user";
 import axios from "axios";
-
-const userApi = axios.create({
-    baseURL: "http://localhost:4000/api/users"
+const BASE_URL = 'http://localhost:4000/api/users';
+const ALL_BASE_URL = 'http://localhost:4000/api';
+export const userApi = axios.create({
+    baseURL: BASE_URL
   })
+  export const axiosPrivate = axios.create({
+    baseURL: ALL_BASE_URL,
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true
+});
 //   export const fetchAssets = async (): Promise<Asset[]> => {
 //     const response =  await assetApi.get(`/`)
 //     console.log(response.data);
@@ -27,7 +33,6 @@ const userApi = axios.create({
   }
 
   export const getUsers = async (accessToken:string) => {
-    console.log(accessToken);
     
     return (await userApi.get("/users", {
       headers: {

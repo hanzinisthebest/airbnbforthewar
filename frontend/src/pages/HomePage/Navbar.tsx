@@ -8,6 +8,8 @@ import { useDisclosure, useHeadroom } from '@mantine/hooks';
 import CreatePlace from '../CreatePlacePage/CreatePlace';
 import { useTokenStore } from '../../store/useTokenStore';
 import { useRolesStore } from '../../store/useRolesStore';
+import { ROLES_LIST } from '../../Router';
+import useLogout from '../../hooks/useLogout';
 
 interface Props {
   
@@ -21,6 +23,12 @@ const Navbar: React.FC<Props> = () => {
   const setToken = useTokenStore((state) => state.setToken);
   const roles = useRolesStore((state) => state.roles)
   const setRoles = useRolesStore((state) => state.setRoles);
+  const logout = useLogout();
+
+  const signOut = async () => {
+    await logout();
+    navigate('/');
+}
   return (
      <>
          <Group justify="space-between" mt={2}>
@@ -40,12 +48,10 @@ const Navbar: React.FC<Props> = () => {
           <Modal opened={opened} onClose={close} >
          <CreatePlace close={close}/>
          </Modal>
-            {token?<Button variant="subtle" color="gray" radius="xl" onClick={() => navigate('/users')}>users</Button>:''}
+            {token?roles?.find((role: number) => role == ROLES_LIST.Admin)?<Button variant="subtle" color="gray" radius="xl" onClick={() => navigate('/users')}>users</Button>:'':''}
             {token?<Button variant="subtle" color="gray" radius="xl" onClick={() => navigate(`myassets/:${ownerId}`)}>Your Assets</Button>:''}
             {token?<Button variant="subtle" color="gray" radius="xl" onClick={open}>Airbnb your home</Button>:''}
-            {token ?< Button onClick={()=> {
-             setToken('');
-            navigate('/');}}>
+            {token ?< Button onClick={signOut}>
               Logout
             </Button>:''}
            
