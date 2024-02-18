@@ -34,11 +34,12 @@ const createUser = async (req , res) => {
                    // Saving refreshToken with current user
         user.refreshToken = refreshToken;
         const result = await user.save();
+        const id = user._id
         console.log(result);
          res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 });
 
          // Send authorization roles and access token to user
-            res.status(200).json({result,accessToken});
+            res.status(200).json({result,accessToken,id});
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -73,12 +74,13 @@ const handleLogin = async (req, res) => {
         );
         // Saving refreshToken with current user
         foundUser.refreshToken = refreshToken;
+        const id = foundUser._id
         const result = await foundUser.save();
         console.log(result);
          res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 });
 
          // Send authorization roles and access token to user
-         res.json({  roles,accessToken,result });
+         res.json({  roles,accessToken,result,id });
  
     } else {
         res.sendStatus(401);

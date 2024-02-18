@@ -23,6 +23,7 @@ import { checkAuthLoader } from './util/auth';
 import RequireAuth from "./pages/RequireAuth";
 import UsersTable from "./pages/UsersPage/UsersTable";
 import PersistLogin from "./pages/PersistLogin";
+import Chat from "./pages/ChatPage/Chat";
 export const ROLES_LIST = {
   "Admin": 5150,
   "Editor": 1984,
@@ -69,6 +70,7 @@ export function Router() {
           <Route element = {<PersistLogin/>}>
           <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
           <Route path="/myassets/:ownerId" element={<MyAssets/>} />
+          <Route path="/chat" element = {<Chat/>}/>
           </Route>
           <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
           <Route path="/users" element={<UsersTable/>} />

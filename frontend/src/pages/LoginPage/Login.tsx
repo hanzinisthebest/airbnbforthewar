@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRolesStore } from '../../store/useRolesStore';
+import { useIdStore } from '../../store/useIdStore';
 
 interface Props {
   
@@ -17,6 +18,7 @@ const Login: React.FC<Props> = () => {
   
   const setToken = useTokenStore((state) => state.setToken);
   const setRoles = useRolesStore((state) => state.setRoles);
+  const setId = useIdStore((state)=> state.id);
   const form = useForm<loginUser>({
     initialValues: {
       username: '',
@@ -30,7 +32,7 @@ const navigate = useNavigate();
 const location = useLocation();
 const from = location.state?.from?.pathname || "/";
   const onSubmit = async (values:loginUser) => {
-   const {accessToken,roles} = await logUserMutation.mutateAsync(values).then((response) => {
+   const {accessToken,roles,id} = await logUserMutation.mutateAsync(values).then((response) => {
       // const accessToken = response.accessToken;
       // const roles = response.roles;
       // console.log(typeof(roles));
@@ -43,7 +45,7 @@ const from = location.state?.from?.pathname || "/";
  
   setToken(token);
   setRoles(Object.values(roles).map(Number));
-  
+  // setId(id);
   navigate(from, { replace: true });   
   };
 

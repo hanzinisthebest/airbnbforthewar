@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Loading from '../Shared/Loading';
 import { useGetAssetsById } from '../../hooks/Querys/query-assets';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Badge, Button, Group, Image, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import ImageSlider from './ImageSlider';
 
@@ -13,6 +13,7 @@ export type MyParams = {
 };
 
 const PlaceDeatile: React.FC<Props> = () => {
+  const navigate = useNavigate();
   let {id} =useParams<MyParams>();
   id = typeof id === 'string' ? id : '';
   const { isLoading, error, data } = useGetAssetsById(id);
@@ -97,7 +98,9 @@ const PlaceDeatile: React.FC<Props> = () => {
       </Text>
       </Group>
       </SimpleGrid>
-      <Button mt={400}>To Chat</Button>
+      <Button mt={400}  onClick={()=>{
+        navigate('/chat')
+      }}>To Chat</Button>
   </Stack>
 
   <ImageSlider images = {images}/>

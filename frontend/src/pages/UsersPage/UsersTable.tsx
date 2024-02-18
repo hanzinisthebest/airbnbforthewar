@@ -8,8 +8,8 @@ interface Props {
 }
 
 const UsersTable: React.FC<Props> = () => {
-    const token = useTokenStore((state) =>  state.token);
-const { isLoading, error, data } = useGetUsers(token?token:'');
+  const token = useTokenStore((state) =>  state.token);
+  const { isLoading, error, data } = useGetUsers(token?token:'');
   if (isLoading) {
     return <Loading />;
   }

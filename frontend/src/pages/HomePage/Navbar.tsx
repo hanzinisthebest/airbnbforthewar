@@ -1,8 +1,8 @@
 
-import { ActionIcon, Button, Group, Menu, Modal, Text, UnstyledButton } from '@mantine/core';
+import { ActionIcon, Button, Group, Menu, Modal, Text, UnstyledButton, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
 import React from 'react';
 import { Form, Link, NavLink, Navigate, useNavigate, useRouteLoaderData } from 'react-router-dom';
-import {IconHome , IconMenu2, IconSearch, IconSettings, IconUserCircle, IconWorld} from '@tabler/icons-react'
+import {IconHome , IconMenu2, IconMoon, IconSearch, IconSettings, IconSun, IconUserCircle, IconWorld} from '@tabler/icons-react'
 import ChangeLanguage from './ChangeLanguage';
 import { useDisclosure, useHeadroom } from '@mantine/hooks';
 import CreatePlace from '../CreatePlacePage/CreatePlace';
@@ -10,12 +10,15 @@ import { useTokenStore } from '../../store/useTokenStore';
 import { useRolesStore } from '../../store/useRolesStore';
 import { ROLES_LIST } from '../../Router';
 import useLogout from '../../hooks/useLogout';
-
+import classes from './Navbar.module.css';
+import cx from 'clsx';
 interface Props {
   
 }
 
 const Navbar: React.FC<Props> = () => {
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
   const [opened, { toggle  , open ,close}] = useDisclosure();
   const navigate = useNavigate();
   const ownerId = '65647676ae692b64bc0c8d93';
@@ -74,6 +77,17 @@ const Navbar: React.FC<Props> = () => {
                 <Menu.Item>Help Center</Menu.Item> */}
               </Menu.Dropdown>
             </Menu>:''}
+
+      <ActionIcon
+        onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
+        variant="default"
+        size="xl"
+        aria-label="Toggle color scheme"
+      >
+        <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+        <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+      </ActionIcon>
+            
           </Group>
           
         </Group>

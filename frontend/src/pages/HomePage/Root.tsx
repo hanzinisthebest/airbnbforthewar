@@ -10,10 +10,10 @@ interface Props {
 }
 
 const Root: React.FC<Props> = () => {
-  const setToken = useTokenStore((state) => state.setToken);
-  useEffect(() => {
-    setToken(getAuthToken())
-  }, [])
+  // const setToken = useTokenStore((state) => state.setToken);
+  // useEffect(() => {
+  //   setToken(getAuthToken())
+  // }, [])
   
   return (
     <>
