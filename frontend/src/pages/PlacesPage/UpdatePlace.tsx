@@ -12,7 +12,8 @@ import { addAsset, editAsset } from '../../api/api-assets';
 import { queryClient } from '../../util/queryClinet';
 import Loading from '../Shared/Loading';
 import { MyParams } from '../PlaceDeatilePage/PlaceDeatile';
-import { useGetAssetsById } from '../../Querys/query-assets';
+import { useGetAssetsById } from '../../hooks/Querys/query-assets';
+import { useTokenStore } from '../../store/useTokenStore';
 interface Props {
   close: () => void;
   id: string;
@@ -31,14 +32,9 @@ function getDatesBetween(start: Date, end: Date): Date[] {
 }
 
 const UpdatePlace: React.FC<Props> = ({ close, id }) => {
+    const token = useTokenStore((state) => state.token);
   const { isLoading, error, data } = useGetAssetsById(id);
-  const EditAssetMutation = useMutation({
-    mutationFn: editAsset,
-    onSuccess: () => {
-      // Invalidates cache and refetch
-      queryClient.invalidateQueries({ queryKey: ['assets'] });
-    },
-  });
+
   const form = useForm<Asset>({
     initialValues: {
       _id: '',
@@ -50,6 +46,14 @@ const UpdatePlace: React.FC<Props> = ({ close, id }) => {
       isBreakfast: false,
       availability: [],
       ownerId: '65647676ae692b64bc0c8d93',
+    },
+  });
+
+  const EditAssetMutation = useMutation({
+    mutationFn: ()=>editAsset(form.values,token?token:''),
+    onSuccess: () => {
+      // Invalidates cache and refetch
+      queryClient.invalidateQueries({ queryKey: ['assets'] });
     },
   });
 
@@ -84,7 +88,7 @@ const UpdatePlace: React.FC<Props> = ({ close, id }) => {
     form.values.availability = getDatesBetween(values.availability[0], values.availability[1]);
     console.log(data.availability);
     console.log(values);
-    EditAssetMutation.mutateAsync(values);
+    EditAssetMutation.mutateAsync(values,token?token:'');
   };
 
   return (

@@ -20,7 +20,7 @@ const userSchema = new Schema (
             type: String,
             required: true
         },
-        password: {
+        hashedPwd: {
             type: String,
             required: true
         },
@@ -35,8 +35,16 @@ const userSchema = new Schema (
         phone: {
             type: String,
             required: true
-        }
-        
+        },
+        roles: {
+            User: {
+                type: Number,
+                default: 2001
+            },
+            Editor: Number,
+            Admin: Number
+        },
+        refreshToken: String
 
     } , {timestamps: true}
 )

@@ -10,6 +10,7 @@ import { deleteAsset } from '../../api/api-assets';
 import { queryClient } from '../../util/queryClinet';
 import { useDisclosure } from '@mantine/hooks';
 import UpdatePlace from '../PlacesPage/UpdatePlace';
+import { useTokenStore } from '../../store/useTokenStore';
 
 interface Props {
   id: string;
@@ -35,12 +36,13 @@ const AssetCard: React.FC<Props> = ({
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
   const [openedUpdate, { open:openUpdate, close:closeUpdate }] = useDisclosure(false);
+  const token = useTokenStore((state) => state.token);
   function handleDelete() {
-    deleteAssetMutation.mutateAsync(id);
+    deleteAssetMutation.mutateAsync(id,token);
     close();
   }
   const deleteAssetMutation = useMutation({
-    mutationFn: deleteAsset,
+    mutationFn:()=> deleteAsset(id,token?token:''),
     onSuccess: async () => {
       // Invalidates cache and refetch
       await queryClient.invalidateQueries({ queryKey: ['assets'] });
