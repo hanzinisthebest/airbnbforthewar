@@ -12,8 +12,18 @@ import { getAuthToken } from "../util/auth";
 const assetApi = axios.create({
   baseURL: "http://localhost:4000/api/assets"
 })
-export const fetchAssets = async (): Promise<Asset[]> => {
-  const response =  await assetApi.get(`/`,)
+export const fetchAssets = async (city:string|null,guests:number|null): Promise<Asset[]> => {
+  console.log(city);
+  
+  const response =  await assetApi.get('/', {
+    params: {
+      city: city,
+      guests: guests
+    },
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
   return response.data;
 }; 
 export const fetchAssetByOwenrId = async (ownerId:string,axiosPrivate: AxiosInstance): Promise<Asset[]> => {

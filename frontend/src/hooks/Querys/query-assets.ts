@@ -7,13 +7,12 @@ import {
 } from "@tanstack/react-query";
 import { AxiosInstance } from "axios";
 
-export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
+export const useGetAssets = (city: string | null, guests: number | null, options?: UseQueryOptions<Asset[], Error>) =>
   useQuery({
-    queryKey: ["assets"],
-    queryFn: fetchAssets,
+    queryKey: ["assets", { city, guests }], // include city and guests in the query key
+    queryFn: () => fetchAssets(city, guests),
     ...options,
   });
-  
   export const useGetAssetsByOwnerId =  (ownerId:string,axiosPrivate:AxiosInstance,options?: UseQueryOptions<Asset[], Error>) =>
   useQuery({
    queryKey: ["assets",ownerId],
@@ -26,6 +25,7 @@ export const useGetAssets = (options?: UseQueryOptions<Asset[], Error>) =>
     queryFn: ()=>fetchAssetById(id),
     ...options,
   });
+  
   // export const useCreateAsset = (asset:AssetToAdd,accessToken:string,options?: UseQueryOptions<AssetToAdd, Error>)=>
   // useMutation({
   //   mutationFn:()=> addAsset(asset,accessToken),

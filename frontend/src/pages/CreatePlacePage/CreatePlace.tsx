@@ -28,7 +28,7 @@ interface Props {
 //   });
 // };
 
-function getDatesBetween(start: Date, end: Date): Date[] {
+export function getDatesBetween(start: Date, end: Date): Date[] {
   const dates: Date[] = [];
   let currentDate = new Date(start);
 

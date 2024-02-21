@@ -3,6 +3,8 @@ import PlaceCard from './UI/PlaceCard';
 import { Button , Grid, Loader, LoadingOverlay, SimpleGrid } from '@mantine/core';
 import Loading from '../Shared/Loading';
 import { useGetAssets } from '../../hooks/Querys/query-assets';
+import { useFilterStore } from '../../store/useFilterStore';
+import { queryClient } from '../../util/queryClinet';
 // import { useInfiniteQuery } from '@tanstack/react-query'
 // import { fetchAssets } from '@/api/api-assets';
 // import Asset from '@/models/assets';
@@ -35,14 +37,25 @@ const Places: React.FC<Props> = () => {
   //   setHasMore(false); 
   // }
   // };
+const filter = useFilterStore((state) => state);
+const { city, guests } = filter;
+const { isLoading, error, data } = useGetAssets(city, guests);
 
-  const { isLoading, error, data } = useGetAssets();
-  if (isLoading) {
-    return <Loading />;
+useEffect(() => {
+  if (city || guests) {
+    queryClient.invalidateQueries({ queryKey: ['assets', { city: filter.city, guests: filter.guests }] });
   }
-  if(!data){
-    return <h1>empty</h1>;
-  }
+}, [ city, guests]);
+
+if (isLoading) {
+  return <Loading />;
+}
+if (error) {
+  return <div>Error! {error.message}</div>;
+}
+if (data?.length ===  0) {
+  return <h1>Couldn't find any assets</h1>;
+}
 
   // const { isLoading, error, data,refetch} = useGetAssets();
 

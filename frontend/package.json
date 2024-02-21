@@ -30,6 +30,7 @@
     "embla-carousel-react": "^8.0.0-rc14",
     "env": "^0.0.2",
     "react": "^18.2.0",
+    "react-country-state-city": "^1.1.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-infinite-scroller": "^1.2.6",
